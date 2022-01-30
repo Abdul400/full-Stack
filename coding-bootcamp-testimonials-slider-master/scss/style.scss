@@ -1,0 +1,465 @@
+/*mixins*/
+@mixin flexbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* color variables */
+//primary colors
+$Dark-Blue: hsl(240, 38%, 20%);
+$Grayish-Blue: hsl(240, 18%, 77%);
+
+/*fonts*/
+//font-size
+$normal-size: 32px;
+
+/*fonts*/
+/* inter-300 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/inter-v7-latin-300.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inter-v7-latin-300.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inter-v7-latin-300.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inter-v7-latin-300.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inter-v7-latin-300.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('/fonts/inter-v7-latin-300.svg#Inter')
+      format('svg'); /* Legacy iOS */
+}
+/* inter-500 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/inter-v7-latin-500.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inter-v7-latin-500.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inter-v7-latin-500.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inter-v7-latin-500.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inter-v7-latin-500.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('/fonts/inter-v7-latin-500.svg#Inter')
+      format('svg'); /* Legacy iOS */
+}
+/* inter-700 - latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/inter-v7-latin-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+    url('/fonts/inter-v7-latin-700.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */ url('/fonts/inter-v7-latin-700.woff2') format('woff2'),
+    /* Super Modern Browsers */ url('/fonts/inter-v7-latin-700.woff')
+      format('woff'),
+    /* Modern Browsers */ url('/fonts/inter-v7-latin-700.ttf')
+      format('truetype'),
+    /* Safari, Android, iOS */ url('/fonts/inter-v7-latin-700.svg#Inter')
+      format('svg'); /* Legacy iOS */
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+main,
+body,
+html {
+  width: 100%;
+  min-height: 100vh;
+  @include flexbox;
+  padding: 0;
+  margin: 0;
+  background-image: url('/images/pattern-curve.svg');
+  background-repeat: no-repeat;
+  background-position-x: 0%;
+  background-position-y: 100%;
+  background-size: 35%;
+}
+
+//fonts sizes and colors
+p {
+  font-size: $normal-size;
+  color: $Dark-Blue;
+  font-weight: 400;
+  font-family: 'Inter';
+}
+#name {
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  top: 6.3rem;
+}
+#position {
+  color: $Grayish-Blue;
+  font-weight: 300;
+  font-size: 20px;
+  position: relative;
+  left: 7em;
+  bottom: -4em;
+}
+
+.primary-container {
+  height: 45rem;
+  width: 80em;
+  z-index: 2;
+  @include flexbox;
+  overflow: visible;
+  background-image: url('/images/pattern-bg.svg'),
+    url('/images/pattern-quotes.svg');
+  background-repeat: no-repeat, no-repeat;
+  background-position-x: 34.5em, 16em;
+  background-position-y: 1em, 10em;
+  background-size: 42em, 8em;
+  .container {
+    height: 75%;
+    width: 75%;
+    @include flexbox;
+    .content-container {
+      width: 50%;
+      height: 100%;
+      @include flexbox;
+      justify-content: flex-start;
+      .contents {
+        height: 80%;
+        width: 100%;
+        z-index: 5;
+        .testimony-content {
+          width: 130%;
+          margin-bottom: 1em;
+          position: relative;
+          top: 6em;
+          #testimony {
+            z-index: 5;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+    .pic-container {
+      width: 50%;
+      height: 100%;
+      box-shadow: 1px 20px 20px rgba(107, 107, 182, 0.4);
+      #pic {
+        width: 100%;
+        height: 100%;
+      }
+      .button {
+        width: 8em;
+        height: 3.8em;
+        background-color: white;
+        position: relative;
+        left: 4rem;
+        bottom: 2.5rem;
+        border-radius: 30px;
+        box-shadow: 5px 10px 20px rgba(107, 107, 182, 0.4);
+        #prev {
+          position: relative;
+          top: 1.3em;
+          left: 0.8em;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        #next {
+          position: relative;
+          top: 1.3em;
+          left: 5.3em;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+//container styling
+
+//media queries
+@media only screen and (max-width: 1250px) {
+  .primary-container {
+    height: 30rem;
+    width: 65rem;
+    background-position-x: 30em, 13em;
+    background-position-y: 0.5em, 7em;
+    background-size: 29.5em, 5em;
+    .container {
+      .content-container {
+        .contents {
+          .testimony-content {
+            position: relative;
+            top: 4em;
+          }
+        }
+      }
+    }
+  }
+  #testimony {
+    font-size: 23px;
+  }
+  #name {
+    top: 4em;
+  }
+  #position {
+    top: 2.8em;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  .primary-container {
+    height: 30rem;
+    width: 55rem;
+    background-position-x: 22em, 13em;
+    background-position-y: 1em, 6em;
+    background-size: 28.5em, 4em;
+    .container {
+      .content-container {
+        .contents {
+          .testimony-content {
+            position: relative;
+            top: 2.5em;
+          }
+        }
+      }
+    }
+  }
+  #testimony {
+    font-size: 22px;
+  }
+  #name {
+    top: 2em;
+  }
+  #position {
+    top: 0.8em;
+  }
+}
+@media only screen and (max-width: 880px) {
+  .primary-container {
+    height: 25rem;
+    width: 45rem;
+    background-position-x: 17.5em, 9em;
+    background-position-y: 1em, 5em;
+    background-size: 24em, 4em;
+  }
+  #testimony {
+    font-size: 19px;
+  }
+  #name {
+    font-size: 15px;
+  }
+  #position {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 735px) {
+  .primary-container {
+    height: 20rem;
+    width: 32rem;
+    background-position-x: 10.8em, 6em;
+    background-position-y: 0.7em, 5em;
+    background-size: 19em, 3em;
+    .container {
+      .pic-container {
+        .button {
+          width: 6em;
+          height: 3em;
+          position: relative;
+          top: -1.5em;
+          left: 2em;
+          #prev {
+            width: 0.7em;
+            top: 1em;
+          }
+          #next {
+            width: 0.7em;
+            left: 3.5em;
+            top: 1em;
+          }
+        }
+      }
+    }
+  }
+  #testimony {
+    font-size: 14px;
+  }
+  #name {
+    font-size: 11px;
+  }
+  #position {
+    font-size: 11px;
+  }
+}
+//mobile
+@media only screen and (max-width: 515px) {
+  body,
+  html,
+  main {
+    background-size: 17rem;
+  }
+  .primary-container {
+    min-height: 48em;
+    width: 28rem;
+    background-position-x: -1.8em, 12em;
+    background-position-y: 0.2em, 27em;
+    background-size: 27em, 4em;
+    .container {
+      height: 90%;
+      width: 85%;
+      flex-direction: column-reverse;
+      .content-container {
+        height: 50%;
+        width: 100%;
+        .contents {
+          .testimony-content {
+            width: 100%;
+            top: 1rem;
+            height: 6em;
+            position: relative;
+            top: 2.5em;
+          }
+        }
+      }
+      .pic-container {
+        height: 50%;
+        width: 75%;
+        border-radius: 5px 5px 5px 5px;
+        .button {
+          height: 3em;
+          width: 6em;
+          position: relative;
+          left: 6em;
+          #prev {
+            width: 0.6em;
+            top: 1em;
+          }
+          #next {
+            width: 0.6em;
+            left: 3.7em;
+            top: 1em;
+          }
+        }
+      }
+    }
+  }
+  #testimony {
+    font-size: 18px;
+    text-align: center;
+  }
+  #name {
+    font-size: 17px;
+    text-align: center;
+    position: relative;
+    top: 5em;
+  }
+  .name-position-container {
+    height: 3em;
+    position: relative;
+    top: 0em;
+  }
+  #position {
+    font-size: 17px;
+    text-align: center;
+    position: relative;
+    top: 6rem;
+    left: 0.2em;
+  }
+}
+@media only screen and (max-width: 467px) {
+  .primary-container {
+    min-height: 48em;
+    width: 24rem;
+    background-position-x: -4em, 11em;
+    background-position-y: 0.2em, 27em;
+    background-size: 27em, 4em;
+    .container {
+      .pic-container {
+        height: 50%;
+        width: 85%;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 400px) {
+  .primary-container {
+    min-height: 48em;
+    width: 22rem;
+    background-position-x: -6em, 9em;
+    background-position-y: -0em, 27em;
+    background-size: 27em, 4em;
+    .container {
+      .pic-container {
+        width: 87%;
+        .button {
+          position: relative;
+          left: 5em;
+        }
+      }
+    }
+  }
+  #testimony {
+    font-size: 16px;
+  }
+  #name {
+    font-size: 14px;
+  }
+  #position {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .primary-container {
+    min-height: 48em;
+    width: 19rem;
+    background-position-x: -4em, 8em;
+    background-position-y: 2.2em, 25em;
+    background-size: 22.5em, 4em;
+    .container {
+      .pic-container {
+        width: 90%;
+        height: 40%;
+        .button {
+          position: relative;
+          left: 4.2em;
+        }
+      }
+    }
+  }
+
+  #testimony {
+    font-size: 16px;
+  }
+  #name {
+    font-size: 15px;
+    top: 7.5em;
+  }
+  #position {
+    font-size: 15px;
+    top: 8em;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .primary-container {
+    min-height: 48em;
+    width: 15rem;
+    background-position-x: -4em, 6em;
+    background-position-y: 4em, 24em;
+    background-size: 19em, 3.5em;
+    .container {
+      .pic-container {
+        width: 95%;
+        height: 35%;
+        .button {
+          position: relative;
+          left: 3em;
+        }
+      }
+    }
+  }
+}
