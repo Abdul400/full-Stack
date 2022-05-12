@@ -31,6 +31,9 @@ html {
   align-items: center;
   position: relative;
 }
+.rotor {
+  box-shadow: 0px 15px 25px black;
+}
 #launch {
   color: white;
   font-family: 'Red Hat Text', sans-serif;
