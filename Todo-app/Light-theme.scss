@@ -167,10 +167,17 @@ hr {
   background-clip: content-box, border-box;
   border: 2px solid #0000;
 }
+.checked {
+  background-image: url(/images/checkmark.png);
+  background-size: contain;
+}
 .list-item > p {
   margin: 0;
   font-family: Josefin Sans;
   font-size: 16px;
+}
+.completed {
+  text-decoration: line-through;
 }
 .bottom-navigation {
   height: 10%;

@@ -183,6 +183,13 @@ hr {
   font-family: Josefin Sans;
   font-size: 16px;
 }
+.completed {
+  text-decoration: line-through;
+}
+.checked {
+  background-image: url(/images/checkmark.png);
+  background-size: contain;
+}
 .bottom-navigation {
   height: 10%;
   width: 100%;
