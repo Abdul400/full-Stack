@@ -70,17 +70,16 @@ myInput.addEventListener('keyup', (e) => {
             </div>`;
     allMyTodos.push(myInput.value);
     myActiveTodos = allMyTodos.filter((x) => !myCompletedTodos.includes(x));
-    console.log(allMyTodos);
     myInput.value = '';
     strikeThrough(); //calling strikethrough function
     deleteListItem(); //calling deleteListItem function
+    addCount();
   }
 });
 
 function strikeThrough() {
   //adding checkbox functionality
   let myCheckbox = Array.from(document.getElementsByClassName('checkbox'));
-  console.log(myCheckbox);
   //adding event listener to each checkbox
   myCheckbox.forEach((checkbox) => {
     checkbox.addEventListener('click', (e) => {
@@ -91,14 +90,11 @@ function strikeThrough() {
       // e.target.style.backgroundSize = 'cover';
       // e.target.nextElementSibling.style.textDecoration = 'line-through';
       myCompletedTodos.push(e.target.nextElementSibling.textContent);
-      console.log(myCompletedTodos);
-      console.log(allMyTodos);
       myActiveTodos = allMyTodos.filter((value) => {
-        console.log(value);
         return !myCompletedTodos.includes(value);
       });
       console.log(myActiveTodos);
-      console.log(myCompletedTodos);
+      decreaseCount();
     });
   });
 }
@@ -109,18 +105,50 @@ function deleteListItem() {
   myDeleteButton.forEach((button) => {
     button.addEventListener('click', (e) => {
       e.target.parentNode.remove();
+      if (!e.target.previousElementSibling.classList.contains('completed')) {
+        console.log('item not completed');
+        decreaseCount();
+        let myElementPosition = myActiveTodos.indexOf(
+          e.target.previousElementSibling.textContent
+        );
+        let myElementPosition1 = allMyTodos.indexOf(
+          e.target.previousElementSibling.textContent
+        );
+        console.log(e.target.previousElementSibling.textContent);
+        console.log(myElementPosition);
+        console.log(myActiveTodos);
+        console.log(allMyTodos);
+        allMyTodos.splice(myElementPosition1, 1);
+        myActiveTodos.splice(myElementPosition, 1);
+        console.log(myActiveTodos);
+        console.log(allMyTodos);
+      } else if (
+        e.target.previousElementSibling.classList.contains('completed')
+      ) {
+        console.log('item completed');
+        let myElementsPosition = myCompletedTodos.indexOf(
+          e.target.previousElementSibling.textContent
+        );
+        let myElementsPosition1 = allMyTodos.indexOf(
+          e.target.previousElementSibling.textContent
+        );
+        console.log(e.target.previousElementSibling.textContent);
+        console.log(myElementsPosition);
+        console.log(myCompletedTodos);
+        console.log(allMyTodos);
+        myCompletedTodos.splice(myElementsPosition, 1);
+        allMyTodos.splice(myElementsPosition1, 1);
+        console.log(myCompletedTodos);
+        console.log(allMyTodos);
+      }
     });
   });
 }
 
 function resetTodos() {
-  console.log(myCompletedTodos);
   let allParagraphs = Array.from(document.querySelectorAll('p'));
-  console.log(allParagraphs);
   for (let i = 0; i < allParagraphs.length; i++) {
     if (allParagraphs[i].classList.contains('completed')) {
-      console.log('hellow');
-      console.log(allParagraphs[i]);
       allParagraphs[i].parentNode.remove();
     }
   }
@@ -140,10 +168,8 @@ let myAllButton = document.getElementById('all'),
 //adding event listener to the 'completed' button
 myCompletedButton.addEventListener('click', () => {
   myInput.disabled = true;
-  console.log(resetButton);
   myLists.innerHTML = '';
   for (var i = 0; i < myCompletedTodos.length; i++) {
-    console.log(myCompletedTodos[i]);
     //populating the list on button press
     myLists.innerHTML += `<div class="list-item">
               <div class="checkbox checked"></div>
@@ -156,15 +182,13 @@ myCompletedButton.addEventListener('click', () => {
               <hr />
             </div>`;
   }
+  deleteListItem();
 });
 
 //adding event listener to the 'Active' button
 myActiveButton.addEventListener('click', () => {
-  console.log('sheesh');
   myLists.innerHTML = '';
-  console.log(myActiveTodos);
   for (var i = 0; i < myActiveTodos.length; i++) {
-    console.log(myActiveTodos[i]);
     //populating the list on button press
     myLists.innerHTML += `<div class="list-item">
               <div class="checkbox"></div>
@@ -187,7 +211,6 @@ myAllButton.addEventListener('click', () => {
   myInput.disabled = false;
   myLists.innerHTML = '';
   for (var i = 0; i < myActiveTodos.length; i++) {
-    console.log(myActiveTodos[i]);
     //populating the list on button press
     myLists.innerHTML += `<div class="list-item">
               <div class="checkbox"></div>
@@ -201,7 +224,6 @@ myAllButton.addEventListener('click', () => {
             </div>`;
   }
   for (var i = 0; i < myCompletedTodos.length; i++) {
-    console.log(myCompletedTodos[i]);
     //populating the list on button press
     myLists.innerHTML += `<div class="list-item">
               <div class="checkbox checked"></div>
@@ -223,3 +245,19 @@ let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => {
   resetTodos();
 });
+
+//adding counter for items left
+let myCounter = document.getElementsByClassName('items-left')[0],
+  count = 0;
+
+function addCount() {
+  count++;
+  myCounter.textContent = count + ' items left';
+}
+
+function decreaseCount() {
+  if (count > 0) {
+    count--;
+  }
+  myCounter.textContent = count + ' items left';
+}
