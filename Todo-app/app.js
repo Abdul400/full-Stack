@@ -1,3 +1,7 @@
+window.addEventListener('load', () => {
+  myAllButton.click();
+  console.log('all button clicked');
+});
 //changing themes
 //declaration of variables
 let changeThemeButton = document.getElementById('switch-icons'),
@@ -58,7 +62,7 @@ let myInput = document.getElementById('input'),
 //adding eventlistener to input field
 myInput.addEventListener('keyup', (e) => {
   if (e.key == 'Enter' && myInput.value != '') {
-    myLists.innerHTML += `<div class="list-item">
+    myLists.innerHTML += `<div class="list-item" draggable="true">
               <div class="checkbox"></div>
               <p>${myInput.value}</p>
               <img
@@ -74,6 +78,7 @@ myInput.addEventListener('keyup', (e) => {
     strikeThrough(); //calling strikethrough function
     deleteListItem(); //calling deleteListItem function
     addCount();
+    dragAndDrop();
   }
 });
 
@@ -93,7 +98,6 @@ function strikeThrough() {
       myActiveTodos = allMyTodos.filter((value) => {
         return !myCompletedTodos.includes(value);
       });
-      console.log(myActiveTodos);
       decreaseCount();
     });
   });
@@ -106,7 +110,6 @@ function deleteListItem() {
     button.addEventListener('click', (e) => {
       e.target.parentNode.remove();
       if (!e.target.previousElementSibling.classList.contains('completed')) {
-        console.log('item not completed');
         decreaseCount();
         let myElementPosition = myActiveTodos.indexOf(
           e.target.previousElementSibling.textContent
@@ -114,32 +117,19 @@ function deleteListItem() {
         let myElementPosition1 = allMyTodos.indexOf(
           e.target.previousElementSibling.textContent
         );
-        console.log(e.target.previousElementSibling.textContent);
-        console.log(myElementPosition);
-        console.log(myActiveTodos);
-        console.log(allMyTodos);
         allMyTodos.splice(myElementPosition1, 1);
         myActiveTodos.splice(myElementPosition, 1);
-        console.log(myActiveTodos);
-        console.log(allMyTodos);
       } else if (
         e.target.previousElementSibling.classList.contains('completed')
       ) {
-        console.log('item completed');
         let myElementsPosition = myCompletedTodos.indexOf(
           e.target.previousElementSibling.textContent
         );
         let myElementsPosition1 = allMyTodos.indexOf(
           e.target.previousElementSibling.textContent
         );
-        console.log(e.target.previousElementSibling.textContent);
-        console.log(myElementsPosition);
-        console.log(myCompletedTodos);
-        console.log(allMyTodos);
         myCompletedTodos.splice(myElementsPosition, 1);
         allMyTodos.splice(myElementsPosition1, 1);
-        console.log(myCompletedTodos);
-        console.log(allMyTodos);
       }
     });
   });
@@ -171,7 +161,7 @@ myCompletedButton.addEventListener('click', () => {
   myLists.innerHTML = '';
   for (var i = 0; i < myCompletedTodos.length; i++) {
     //populating the list on button press
-    myLists.innerHTML += `<div class="list-item">
+    myLists.innerHTML += `<div class="list-item" draggable="true">
               <div class="checkbox checked"></div>
               <p class="completed">${myCompletedTodos[i]}</p>
               <img
@@ -190,7 +180,7 @@ myActiveButton.addEventListener('click', () => {
   myLists.innerHTML = '';
   for (var i = 0; i < myActiveTodos.length; i++) {
     //populating the list on button press
-    myLists.innerHTML += `<div class="list-item">
+    myLists.innerHTML += `<div class="list-item" draggable="true">
               <div class="checkbox"></div>
               <p>${myActiveTodos[i]}</p>
               <img
@@ -208,11 +198,12 @@ myActiveButton.addEventListener('click', () => {
 
 //adding event listener to the 'All' button
 myAllButton.addEventListener('click', () => {
+  console.log(allMyTodos);
   myInput.disabled = false;
   myLists.innerHTML = '';
   for (var i = 0; i < myActiveTodos.length; i++) {
     //populating the list on button press
-    myLists.innerHTML += `<div class="list-item">
+    myLists.innerHTML += `<div class="list-item" draggable="true">
               <div class="checkbox"></div>
               <p>${myActiveTodos[i]}</p>
               <img
@@ -225,7 +216,7 @@ myAllButton.addEventListener('click', () => {
   }
   for (var i = 0; i < myCompletedTodos.length; i++) {
     //populating the list on button press
-    myLists.innerHTML += `<div class="list-item">
+    myLists.innerHTML += `<div class="list-item" draggable="true">
               <div class="checkbox checked"></div>
               <p class="completed">${myCompletedTodos[i]}</p>
               <img
@@ -238,6 +229,7 @@ myAllButton.addEventListener('click', () => {
   }
   strikeThrough();
   deleteListItem();
+  dragAndDrop();
 });
 
 //clearing completed todos
@@ -260,4 +252,121 @@ function decreaseCount() {
     count--;
   }
   myCounter.textContent = count + ' items left';
+}
+
+//adding drag and drop functionality
+let dragged;
+let dropped;
+function dragAndDrop() {
+  let allDragLists = Array.from(document.getElementsByClassName('list-item'));
+  console.log(allDragLists);
+  allDragLists.forEach((dragItem) => {
+    console.log('drag event');
+    dragItem.addEventListener('dragstart', (e) => {
+      dragged = e.target.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
+      console.log(dragged);
+      console.log(allMyTodos);
+      console.log(allMyTodos.indexOf(dragged));
+      return dragged;
+    });
+  });
+  allDragLists.forEach((dropOverItem) => {
+    dropOverItem.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+  });
+  allDragLists.forEach((dropTarget) => {
+    dropTarget.addEventListener('drop', (e) => {
+      let dragger = () => {
+        console.log('testing');
+        e.preventDefault;
+        dropped = e.target.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
+        console.log(dragged + ' has been dropped  on ' + dropped);
+        return dropped;
+      };
+      dragger();
+      positionCheck();
+    });
+  });
+}
+
+function positionCheck() {
+  console.log('checking position');
+  console.log(allMyTodos);
+  console.log(allMyTodos.indexOf(dragged));
+  console.log(allMyTodos.indexOf(dragged) + 1);
+  if (allMyTodos.indexOf(dropped) + 1 == allMyTodos.length) {
+    allMyTodos.splice(allMyTodos.indexOf(dragged), 1);
+    console.log('dropping on last element');
+    allMyTodos.push('Temporary');
+    allMyTodos.splice(allMyTodos.indexOf(dropped) + 1, 0, dragged);
+    console.log(allMyTodos);
+    allMyTodos.pop();
+    console.log(allMyTodos);
+    myLists.innerHTML = '';
+    for (var i = 0; i < allMyTodos.length; i++) {
+      myLists.innerHTML += `<div class="list-item" draggable="true">
+              <div class="checkbox"></div>
+              <p>${allMyTodos[i]}</p>
+              <img
+                class="delete"
+                src="images/icon-cross.svg"
+                alt="delete item"
+              />
+              <hr />
+            </div>`;
+    }
+    dragAndDrop();
+    strikeThrough();
+    deleteListItem();
+  } else if (allMyTodos.indexOf(dragged) + 1 == allMyTodos.indexOf(dropped)) {
+    console.log('next to each other');
+    allMyTodos.splice(allMyTodos.indexOf(dropped) + 1, 0, 'temporary');
+    console.log(allMyTodos);
+    allMyTodos.splice(allMyTodos.indexOf('temporary'), 0, dragged);
+    allMyTodos.splice(allMyTodos.indexOf(dragged), 1);
+    console.log(allMyTodos);
+    let myNewestArray = allMyTodos.filter((item) => {
+      return item != 'temporary';
+    });
+    allMyTodos = myNewestArray;
+    console.log(allMyTodos);
+    myLists.innerHTML = '';
+    for (var i = 0; i < allMyTodos.length; i++) {
+      myLists.innerHTML += `<div class="list-item" draggable="true">
+              <div class="checkbox"></div>
+              <p>${allMyTodos[i]}</p>
+              <img
+                class="delete"
+                src="images/icon-cross.svg"
+                alt="delete item"
+              />
+              <hr />
+            </div>`;
+    }
+    dragAndDrop();
+    strikeThrough();
+    deleteListItem();
+  } else {
+    allMyTodos.splice(allMyTodos.indexOf(dragged), 1);
+    console.log('go ahead');
+    allMyTodos.splice(allMyTodos.indexOf(dropped), 0, dragged);
+    console.log(allMyTodos);
+    myLists.innerHTML = '';
+    for (var i = 0; i < allMyTodos.length; i++) {
+      myLists.innerHTML += `<div class="list-item" draggable="true">
+              <div class="checkbox"></div>
+              <p>${allMyTodos[i]}</p>
+              <img
+                class="delete"
+                src="images/icon-cross.svg"
+                alt="delete item"
+              />
+              <hr />
+            </div>`;
+    }
+    dragAndDrop();
+    strikeThrough();
+    deleteListItem();
+  }
 }
