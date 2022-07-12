@@ -194,6 +194,7 @@ myActiveButton.addEventListener('click', () => {
   myInput.disabled = true;
   deleteListItem();
   strikeThrough();
+  dragAndDrop();
 });
 
 //adding event listener to the 'All' button
@@ -286,6 +287,7 @@ function dragAndDrop() {
       };
       dragger();
       positionCheck();
+      checkIfCompleted();
     });
   });
 }
@@ -293,6 +295,7 @@ function dragAndDrop() {
 function positionCheck() {
   console.log('checking position');
   console.log(allMyTodos);
+  console.log(myCompletedTodos);
   console.log(allMyTodos.indexOf(dragged));
   console.log(allMyTodos.indexOf(dragged) + 1);
   if (allMyTodos.indexOf(dropped) + 1 == allMyTodos.length) {
@@ -319,12 +322,50 @@ function positionCheck() {
     dragAndDrop();
     strikeThrough();
     deleteListItem();
-  } else if (allMyTodos.indexOf(dragged) + 1 == allMyTodos.indexOf(dropped)) {
-    console.log('next to each other');
+  } else if (allMyTodos.indexOf(dragged) < allMyTodos.indexOf(dropped)) {
+    console.log('going down');
+    console.log(allMyTodos);
     allMyTodos.splice(allMyTodos.indexOf(dropped) + 1, 0, 'temporary');
     console.log(allMyTodos);
     allMyTodos.splice(allMyTodos.indexOf('temporary'), 0, dragged);
+    console.log(allMyTodos);
     allMyTodos.splice(allMyTodos.indexOf(dragged), 1);
+    console.log(allMyTodos);
+    let myNewestArray = allMyTodos.filter((item) => {
+      return item != 'temporary';
+    });
+    allMyTodos = myNewestArray;
+    console.log(allMyTodos);
+    myLists.innerHTML = '';
+    for (var i = 0; i < allMyTodos.length; i++) {
+      myLists.innerHTML += `<div class="list-item" draggable="true">
+              <div class="checkbox"></div>
+              <p>${allMyTodos[i]}</p>
+              <img
+                class="delete"
+                src="images/icon-cross.svg"
+                alt="delete item"
+              />
+              <hr />
+            </div>`;
+    }
+    dragAndDrop();
+    strikeThrough();
+    deleteListItem();
+  } else if (allMyTodos.indexOf(dragged) > allMyTodos.indexOf(dropped)) {
+    console.log('going up');
+    allMyTodos.splice(allMyTodos.indexOf(dropped), 0, 'temporary');
+    console.log(allMyTodos);
+    allMyTodos.splice(allMyTodos.indexOf('temporary'), 0, dragged);
+    console.log(allMyTodos);
+    if (allMyTodos.lastIndexOf(dragged) + 1 == allMyTodos.length) {
+      console.log('last element');
+      allMyTodos.pop();
+    } else {
+      console.log('not last');
+      console.log(allMyTodos.lastIndexOf(dragged) + 1);
+      allMyTodos.splice(allMyTodos.lastIndexOf(dragged), 1);
+    }
     console.log(allMyTodos);
     let myNewestArray = allMyTodos.filter((item) => {
       return item != 'temporary';
@@ -368,5 +409,30 @@ function positionCheck() {
     dragAndDrop();
     strikeThrough();
     deleteListItem();
+  }
+}
+
+let allMyLists = document.getElementsByClassName('list-item');
+function checkIfCompleted() {
+  console.log('checking completion');
+  console.log(myCompletedTodos);
+  console.log(allMyTodos);
+  console.log(allMyLists);
+  for (let i = 0; i < allMyTodos.length; i++) {
+    for (let j = 0; j < myCompletedTodos.length; j++) {
+      for (let k = 0; k < allMyLists.length; k++) {
+        console.log('testtetestset');
+        if (
+          allMyTodos[i] == myCompletedTodos[j] &&
+          allMyTodos[i] == allMyLists[k].children[1].textContent
+        ) {
+          console.log('hiiiiiiiiiiii');
+          console.log(allMyLists);
+          console.log(allMyLists[k].children[1]);
+          allMyLists[k].firstElementChild.classList.add('checked');
+          allMyLists[k].children[1].classList.add('completed');
+        }
+      }
+    }
   }
 }
