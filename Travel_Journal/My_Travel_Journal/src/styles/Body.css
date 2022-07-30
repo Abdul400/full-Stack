@@ -1,0 +1,125 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card {
+  height: 250px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  margin-bottom: 36px;
+}
+.image-container {
+  height: 100%;
+  width: 30%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.travelImage {
+  width: 100%;
+  height: 100%;
+}
+.content-container {
+  width: 65%;
+  height: 100%;
+}
+.top-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 7px;
+}
+.locationIcon {
+  margin-right: 4px;
+  width: 7px;
+}
+.google-maps-link {
+  color: #918e9b;
+  font-size: 15px;
+}
+.country {
+  margin-right: 12px;
+  text-transform: uppercase;
+  font-size: 15px;
+  color: #2b283a;
+}
+
+.title {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #2b283a;
+}
+.date {
+  font-weight: 700;
+  margin-bottom: 9px;
+  color: #2b283a;
+}
+
+@media only screen and (max-width: 900px) {
+  .image-container {
+    width: 35%;
+  }
+  .content-container {
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .card {
+    font-size: 13px;
+  }
+  .image-container {
+    width: 40%;
+  }
+  .content-container {
+    width: 55%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .card {
+    font-size: 13px;
+  }
+  .image-container {
+    width: 45%;
+  }
+  .content-container {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .card {
+    font-size: 13px;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+  }
+  .image-container {
+    width: 100%;
+    height: 50%;
+    border-radius: 0;
+  }
+  .content-container {
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .top-container {
+    align-items: center;
+  }
+  .description {
+    text-align: left;
+    padding: 8px;
+  }
+}
