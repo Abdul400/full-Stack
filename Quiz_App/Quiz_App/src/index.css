@@ -2,8 +2,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: #f5f7fb;
   background-image: url(./assets/images/blobs_blue.png),
     url(./assets/images/blobs_yellow.png);
@@ -20,4 +18,12 @@ body {
 #root {
   height: 100%;
   width: 100%;
+}
+@media only screen and (max-width: 600px) {
+  #root {
+    min-height: 100%;
+  }
+  body {
+    height: auto;
+  }
 }

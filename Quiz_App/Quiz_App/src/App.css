@@ -52,11 +52,11 @@
 
 /* Quiz Page*/
 .quizpage--container {
-  height: 90%;
+  height: 95%;
   max-width: 40rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 .question-container {
@@ -66,7 +66,7 @@
   flex-direction: column;
 }
 .question {
-  min-height: 50%;
+  height: 50%;
   color: #293264;
   font-family: 'Karla';
   font-weight: 700;
@@ -105,4 +105,72 @@
   font-weight: 600;
   font-size: 14px;
   border: none;
+  cursor: pointer;
+}
+.check:active {
+  border: 3px inset;
+}
+.control-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.results {
+  color: #293264;
+  font-family: 'Inter';
+  font-weight: 700;
+  font-size: 16px;
+}
+@media only screen and (max-width: 660px) {
+  .quizpage--container {
+    width: 35rem;
+  }
+  .question {
+    font-size: 14px;
+  }
+  .answer {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .app {
+    height: auto;
+  }
+  .quizpage--container {
+    min-height: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .question-container {
+    min-height: 20%;
+    margin-bottom: 2rem;
+  }
+  .question {
+    height: 30%;
+    margin-bottom: 0.5rem;
+  }
+  .answers {
+    flex-direction: column;
+    align-items: flex-start;
+    height: 70%;
+  }
+  .answer {
+    margin-top: 0.3rem;
+    width: 100%;
+  }
+  .control-buttons {
+    flex-direction: column;
+  }
+  .results {
+    margin-bottom: 1rem;
+  }
+}
+@media only screen and (min-height: 1000px) {
+  .quizpage--container {
+    max-height: 70%;
+  }
 }

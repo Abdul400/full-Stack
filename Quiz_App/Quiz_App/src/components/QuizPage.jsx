@@ -3,9 +3,25 @@ import '../App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function QuizPage(props) {
+export default function QuizPage() {
+  let [answersArrays, setAnswersArrays] = useState([]);
+  let [showAnswers, setShowAnswers] = useState(false);
+  let [newQuestion, setnewQuestion] = useState(false);
+  let [buttonDisable, setbuttonDisable] = useState(false);
+  let [finalArray, setFinalArray] = useState([]);
+  let [count, setCount] = useState(0);
+
+  useEffect(() => {
+    fetch(
+      'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple'
+    )
+      .then((res) => res.json())
+      .then((data) => setAnswersArrays(data.results))
+      .catch((err) => console.error(err));
+  }, [newQuestion]);
+
   //creating custom array (has objects) from the raw data
-  let answersArray = props.data.map((item) => ({
+  let answersArray = answersArrays.map((item) => ({
     question: item.question,
     answers: [item.correct_answer, ...item.incorrect_answers],
     correct_answer: item.correct_answer,
@@ -24,10 +40,11 @@ export default function QuizPage(props) {
     };
   });
 
-  console.log(organizedAnswers);
+  //defininig state i.e the array that is to be tracked
 
-  //defininig state i.e teh array that is to be tracked
-  let [finalArray, setFinalArray] = useState(organizedAnswers);
+  useEffect(() => {
+    setFinalArray(organizedAnswers);
+  }, [answersArrays]);
 
   //function for selecting different answer
   function selectAnswer(event, item, answer) {
@@ -35,17 +52,50 @@ export default function QuizPage(props) {
       let finalArrayItemState = prevArray.map((arrayItems) => ({
         ...arrayItems,
         answers: arrayItems.answers.map((option) => {
-          console.log(option);
           if (option === answer) {
-            return { ...option, isSelected: !option.isSelected };
+            return { ...option, isSelected: true };
+          } else if (option != answer && item.answers.includes(option)) {
+            return { ...option, isSelected: false };
           } else {
             return option;
           }
         }),
       }));
-      console.log(finalArray);
       return finalArrayItemState;
     });
+  }
+
+  function showAllAnswers() {
+    if (showAnswers) {
+      setShowAnswers(false);
+      setbuttonDisable(false);
+      setnewQuestion((prevItem) => !prevItem);
+    } else {
+      setShowAnswers(true);
+      setbuttonDisable(true);
+    }
+
+    let correctAnswers = finalArray.map((question) => {
+      return question.correct_answer;
+    });
+    let selectedAnswers = [];
+    for (let i = 0; i < finalArray.length; i++) {
+      for (let j = 0; j < finalArray[i].answers.length; j++) {
+        if (finalArray[i].answers[j].isSelected) {
+          selectedAnswers.push(finalArray[i].answers[j].value);
+        }
+      }
+    }
+
+    let counter = 0;
+    for (let i = 0; i < correctAnswers.length; i++) {
+      for (let j = 0; j < selectedAnswers.length; j++) {
+        if (correctAnswers[i] === selectedAnswers[j]) {
+          counter++;
+        }
+      }
+    }
+    setCount(counter);
   }
 
   let renderedElements = finalArray.map((item) => {
@@ -56,15 +106,60 @@ export default function QuizPage(props) {
         </div>
         <div className="answers">
           {item.answers.map((answer) => {
+            let correctAnswers = finalArray.map((question) => {
+              return question.correct_answer;
+            });
+            function changeBackgroundColor() {
+              if (answer.isSelected === true) {
+                if (showAnswers && correctAnswers.includes(answer.value)) {
+                  return '#94D7A2';
+                } else if (
+                  showAnswers &&
+                  !correctAnswers.includes(answer.value)
+                ) {
+                  return '#cf6969';
+                } else {
+                  return '#D6DBF5';
+                }
+              } else if (showAnswers && correctAnswers.includes(answer.value)) {
+                return '#94D7A2';
+              }
+            }
+            function changeBorder() {
+              if (answer.isSelected === true) {
+                return 'none';
+              } else if (showAnswers) {
+                let border;
+                let correctAnswers = finalArray.map((question) => {
+                  return question.correct_answer;
+                });
+                if (correctAnswers.includes(answer.value)) {
+                  border = 'none';
+                  return border;
+                }
+                return border;
+              }
+            }
+            function changeOpacity() {
+              if (showAnswers) {
+                if (correctAnswers.includes(answer.value)) {
+                  return '1';
+                } else {
+                  return '0.5';
+                }
+              }
+            }
             let styles = {
-              backgroundColor: answer.isSelected ? '#D6DBF5' : 'white',
-              border: answer.isSelected ? 'none' : '',
+              backgroundColor: changeBackgroundColor(),
+              border: changeBorder(),
+              opacity: changeOpacity(),
             };
             return (
               <button
                 className="answer"
                 onClick={(event) => selectAnswer(event, item, answer)}
                 style={styles}
+                disabled={buttonDisable}
               >
                 {answer.value}
               </button>
@@ -78,7 +173,14 @@ export default function QuizPage(props) {
   return (
     <div className="quizpage--container">
       {renderedElements}
-      <button className="check">Check Answers</button>
+      <div className="control-buttons">
+        {showAnswers && (
+          <h4 className="results">You scored {count}/5 correct answers</h4>
+        )}
+        <button className="check" onClick={showAllAnswers}>
+          {showAnswers ? 'Play Again' : 'Show Answers'}
+        </button>
+      </div>
     </div>
   );
 }
