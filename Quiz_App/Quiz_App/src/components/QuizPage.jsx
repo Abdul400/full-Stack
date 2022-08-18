@@ -2,18 +2,28 @@ import React from 'react';
 import '../App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import {
+  DominoSpinner,
+  PongSpinner,
+  SwapSpinner,
+  TraceSpinner,
+} from 'react-spinners-kit';
+import Confetti from 'react-confetti';
+import { nanoid } from 'nanoid';
 
-export default function QuizPage() {
+export default function QuizPage(props) {
   let [answersArrays, setAnswersArrays] = useState([]);
   let [showAnswers, setShowAnswers] = useState(false);
   let [newQuestion, setnewQuestion] = useState(false);
   let [buttonDisable, setbuttonDisable] = useState(false);
   let [finalArray, setFinalArray] = useState([]);
   let [count, setCount] = useState(0);
+  let [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(
-      'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple'
+      `https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple&category=${props.category}`
     )
       .then((res) => res.json())
       .then((data) => setAnswersArrays(data.results))
@@ -41,9 +51,10 @@ export default function QuizPage() {
   });
 
   //defininig state i.e the array that is to be tracked
-
   useEffect(() => {
     setFinalArray(organizedAnswers);
+    setCount(0);
+    setLoading(false);
   }, [answersArrays]);
 
   //function for selecting different answer
@@ -102,7 +113,7 @@ export default function QuizPage() {
     return (
       <div className="question-container">
         <div className="question">
-          <h3>{item.question}</h3>
+          <h3 key={nanoid()}>{item.question}</h3>
         </div>
         <div className="answers">
           {item.answers.map((answer) => {
@@ -119,7 +130,7 @@ export default function QuizPage() {
                 ) {
                   return '#cf6969';
                 } else {
-                  return '#D6DBF5';
+                  return '#c3c7d9';
                 }
               } else if (showAnswers && correctAnswers.includes(answer.value)) {
                 return '#94D7A2';
@@ -160,6 +171,7 @@ export default function QuizPage() {
                 onClick={(event) => selectAnswer(event, item, answer)}
                 style={styles}
                 disabled={buttonDisable}
+                key={nanoid()}
               >
                 {answer.value}
               </button>
@@ -169,9 +181,30 @@ export default function QuizPage() {
       </div>
     );
   });
-
-  return (
+  function restart() {
+    location.reload();
+  }
+  return loading ? (
+    <div className="animation_container">
+      <PongSpinner
+        className="loading"
+        size={70}
+        color="#686769"
+        loading={true}
+      />
+    </div>
+  ) : (
     <div className="quizpage--container">
+      {count === 5 && (
+        <Confetti
+          width={window.innerWidth}
+          height={
+            window.innerWidth < 600
+              ? window.innerHeight * 1.6
+              : window.innerHeight
+          }
+        />
+      )}
       {renderedElements}
       <div className="control-buttons">
         {showAnswers && (
@@ -180,6 +213,11 @@ export default function QuizPage() {
         <button className="check" onClick={showAllAnswers}>
           {showAnswers ? 'Play Again' : 'Show Answers'}
         </button>
+        {showAnswers && (
+          <button className="restart" onClick={restart}>
+            Restart
+          </button>
+        )}
       </div>
     </div>
   );
