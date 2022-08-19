@@ -96,7 +96,7 @@
 .answer {
   background-color: white;
   border-radius: 10px;
-  min-height: 50px;
+  min-height: 25px;
   min-width: 80px;
   color: #293264;
   font-family: 'Inter';
@@ -210,6 +210,7 @@
   .answer {
     margin-top: 0.3rem;
     width: 100%;
+    min-height: 50px;
   }
   .control-buttons {
     flex-direction: column;
