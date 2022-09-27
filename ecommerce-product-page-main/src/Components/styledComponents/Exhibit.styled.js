@@ -88,8 +88,10 @@ export const Thumbnails = styled.div`
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
+  transition: opacity 0.5s ease-in;
   &:hover {
     outline: 2px solid #ff7d1b;
+    opacity: 0.6;
   }
   @media screen and (max-width: 1100px) {
     width: 4rem;
@@ -113,9 +115,6 @@ export const ThumbnailImage = styled.img`
   height: 100%;
   width: 100%;
   transition: opacity 0.5s ease-in;
-  &:hover {
-    opacity: 0.3;
-  }
 `;
 
 //content container
@@ -387,6 +386,7 @@ export const EmptyCart = styled.div`
 export const Checkout = styled.div`
   height: 70%;
   width: 100%;
+  z-index: 1000;
   @media screen and (max-width: 350px) {
     height: 85%;
   }
@@ -476,8 +476,8 @@ export const PreviousButtoncontainers = styled.div`
   position: absolute;
   left: 10px;
   top: 50%;
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   background-color: white;
   border-radius: 100%;
   display: flex;
@@ -485,8 +485,8 @@ export const PreviousButtoncontainers = styled.div`
   justify-content: center;
 `;
 export const NextButtoncontainers = styled.div`
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   background-color: white;
   border-radius: 100%;
   position: absolute;
@@ -496,5 +496,9 @@ export const NextButtoncontainers = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export const PreviousButton = styled.img``;
-export const NextButton = styled.img``;
+export const PreviousButton = styled.img`
+  width: 10px;
+`;
+export const NextButton = styled.img`
+  width: 10px;
+`;

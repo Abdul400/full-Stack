@@ -32,6 +32,10 @@ export const VerticalLinks = styled.li`
   cursor: pointer;
   font-family: 'Kumbh Sans', sans-serif;
   font-weight: 700;
+  & > a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 export const CloseMenu = styled.img`
   width: 0.9rem;

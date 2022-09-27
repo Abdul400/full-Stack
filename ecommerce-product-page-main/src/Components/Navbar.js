@@ -13,6 +13,7 @@ import logoSrc from '../assets/images/logo.svg';
 import cart from '../assets/images/icon-cart.svg';
 import avatar from '../assets/images/image-avatar.png';
 import hamburgericon from '../assets/images/icon-menu.svg';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ openMenu, openCart }) => {
   const [hamburgerMenuisVisible, setHamburgerMenuisVisible] = useState(false);
@@ -55,18 +56,33 @@ const Navbar = ({ openMenu, openCart }) => {
       {hamburgerMenuisVisible && (
         <HamburgerMenu src={hamburgericon} onClick={() => openMenu()} />
       )}
-      <Logo src={logoSrc} />
+      <Link to={'/'}>
+        <Logo src={logoSrc} />
+      </Link>
+
       {!hamburgerMenuisVisible && (
         <LinksContainer>
-          <Links>Collections</Links>
-          <Links>Men</Links>
-          <Links>Women</Links>
-          <Links>About</Links>
-          <Links>Contact</Links>
+          <Links>
+            <Link to={'/collections'}>Collections</Link>
+          </Links>
+          <Links>
+            <Link to={'/men'}>Men</Link>
+          </Links>
+          <Links>
+            <Link to={'/women'}>Women</Link>
+          </Links>
+          <Links>
+            <Link to={'/about'}>About</Link>
+          </Links>
+          <Links>
+            <Link to={'/contact'}>Contact</Link>
+          </Links>
         </LinksContainer>
       )}
       <CartIcon src={cart} onClick={() => openCart()}></CartIcon>
-      <Avatar src={avatar}></Avatar>
+      <Link to={'/profile'}>
+        <Avatar src={avatar}></Avatar>
+      </Link>
     </StyledNavBar>
   );
 };

@@ -54,19 +54,43 @@ import nextbutton from '../assets/images/icon-next.svg';
 import { useState } from 'react';
 
 const Exhibit = ({ cartisOpen, openCart, isMobile, openGallery }) => {
-  console.log(cartisOpen);
   let [count, setCount] = useState(0);
   let [cartCount, setCartCount] = useState(0);
   let [imgSrc, setImgSrc] = useState(mainPictureArray[0]);
+  let [exhibitImage, setExhibitImage] = useState(0);
+  let [thumbnailArray, setThumbnailArray] = useState(thumbnailsArray);
 
-  let myThumbnailArray = thumbnailsArray.map((thumbnail) => {
+  let myThumbnailArray = thumbnailArray.map((thumbnail) => {
+    let style = {
+      opacity: thumbnail.selected ? '0.3' : '1',
+    };
+
+    let style1 = {
+      outline: thumbnail.selected ? '2px solid #ff7d1b' : 'none',
+    };
+
     function imgSrcFinder(e) {
-      let index = thumbnailsArray.indexOf(e.target.src);
-      setImgSrc(mainPictureArray[index]);
+      if (e.target.src === thumbnail.url) {
+        let index = thumbnailArray.indexOf(thumbnail);
+        setCounter(index);
+        setExhibitImage(index);
+      }
+      let myArray = thumbnailArray.map((item) => {
+        if (e.target.src === item.url) {
+          return { ...item, selected: true };
+        } else {
+          return { ...item, selected: false };
+        }
+      });
+      setThumbnailArray(myArray);
     }
     return (
-      <Thumbnails>
-        <ThumbnailImage src={thumbnail} onClick={(e) => imgSrcFinder(e)} />
+      <Thumbnails style={style1}>
+        <ThumbnailImage
+          style={style}
+          src={thumbnail.url}
+          onClick={(e) => imgSrcFinder(e)}
+        />
       </Thumbnails>
     );
   });
@@ -88,12 +112,29 @@ const Exhibit = ({ cartisOpen, openCart, isMobile, openGallery }) => {
       setCount(0);
     }
   }
+  let [counter, setCounter] = useState(0);
+
+  function nextImage() {
+    if (counter >= 0 && counter < mainPictureArray.length - 1) {
+      setCounter((prevCount) => prevCount + 1);
+    } else if (counter === mainPictureArray.length - 1) {
+      setCounter(0);
+    }
+  }
+
+  function previousImage() {
+    if (counter <= mainPictureArray.length - 1 && counter > 0) {
+      setCounter((prevCount) => prevCount - 1);
+    } else if (counter === 0) {
+      setCounter(mainPictureArray.length - 1);
+    }
+  }
   return (
     <PrimaryContainer>
       <PictureContainer>
         <ImageContainer>
           {isMobile && (
-            <PreviousButtoncontainers>
+            <PreviousButtoncontainers onClick={previousImage}>
               <PreviousButton
                 src={previousbutton}
                 alt="previous Image"
@@ -101,13 +142,13 @@ const Exhibit = ({ cartisOpen, openCart, isMobile, openGallery }) => {
             </PreviousButtoncontainers>
           )}
           {isMobile && (
-            <NextButtoncontainers>
+            <NextButtoncontainers onClick={nextImage}>
               <NextButton src={nextbutton} alt="next image"></NextButton>
             </NextButtoncontainers>
           )}
           <MainImage
-            src={imgSrc}
-            onClick={() => openGallery()}
+            src={mainPictureArray[counter]}
+            onClick={(e) => openGallery(e, exhibitImage, thumbnailArray)}
             alt=""
           ></MainImage>
         </ImageContainer>
@@ -150,7 +191,7 @@ const Exhibit = ({ cartisOpen, openCart, isMobile, openGallery }) => {
             <Checkout>
               <CheckoutData>
                 <CheckoutThumbnail>
-                  <FinalThumbnail src={thumbnailsArray[0]}></FinalThumbnail>
+                  <FinalThumbnail src={thumbnailsArray[0].url}></FinalThumbnail>
                 </CheckoutThumbnail>
                 <CheckoutCalculation>
                   <Item>Fall Limited Edition Sneakers</Item>

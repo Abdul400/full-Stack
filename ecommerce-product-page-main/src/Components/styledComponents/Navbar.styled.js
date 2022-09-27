@@ -33,6 +33,8 @@ export const LinksContainer = styled.ul`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  text-decoration: none;
+  color: black;
   @media screen and (max-width: 1250px) {
     width: 50%;
   }
@@ -50,6 +52,8 @@ export const LinksContainer = styled.ul`
 //styling list items
 export const Links = styled.li`
   list-style-type: none;
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
   font-family: 'Kumbh Sans', sans-serif;
   color: #6a6b6d;
@@ -57,9 +61,14 @@ export const Links = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 5;
   &:hover {
     border-bottom: 5px solid #dc7234;
     transition: all 0.2s linear;
+  }
+  & > a {
+    text-decoration: none;
+    color: inherit;
   }
   /* @media screen and (max-width: 1250px) {
     width: 45%;
@@ -105,7 +114,8 @@ export const Avatar = styled.img`
   width: 2.8rem;
   cursor: pointer;
   position: absolute;
-  right: 0;
+  right: 0.5rem;
+  bottom: 1.5rem;
   &:hover {
     border: 2px solid #dc7234;
     border-radius: 100%;

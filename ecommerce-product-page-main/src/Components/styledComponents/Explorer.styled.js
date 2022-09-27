@@ -43,23 +43,28 @@ export const GalleryThumbnails = styled.div`
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  background-color: white;
+  z-index: 140;
   &:hover {
     outline: 2px solid #ff7d1b;
   }
 `;
 export const Thumbnails = styled.img`
+  position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 200;
+  transition: opacity 0.5s ease-in;
+  &:hover {
+    opacity: 0.6 !important;
+  }
 `;
 export const ThumbnailsOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
   position: absolute;
-  opacity: 0;
-  &:hover {
-    opacity: 0.5;
-  }
+  z-index: 145;
 `;
 export const CloseGalleryContainer = styled.div`
   width: 100%;

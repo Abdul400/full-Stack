@@ -52,7 +52,6 @@ img{
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 2px solid red;
    @media screen and (max-width:1250px) {
     width: 60rem;
   }

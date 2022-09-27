@@ -8,6 +8,7 @@ import {
   MainContainer,
 } from './styledComponents/MobileMenu.styled';
 import closeIcon from '../assets/images/icon-close.svg';
+import { Link } from 'react-router-dom';
 
 const MobileMenu = ({ closeMobileMenu, showMobileMenu }) => {
   console.log(showMobileMenu);
@@ -23,11 +24,42 @@ const MobileMenu = ({ closeMobileMenu, showMobileMenu }) => {
             }}
           />
           <UnorderedList showItems={showMobileMenu}>
-            <VerticalLinks>Collections</VerticalLinks>
-            <VerticalLinks>Men</VerticalLinks>
-            <VerticalLinks>Women</VerticalLinks>
-            <VerticalLinks>About</VerticalLinks>
-            <VerticalLinks>Contact</VerticalLinks>
+            <VerticalLinks
+              onClick={() => {
+                closeMobileMenu();
+              }}
+            >
+              <Link to={'/collections'}>Collections</Link>
+            </VerticalLinks>
+            <VerticalLinks
+              onClick={() => {
+                closeMobileMenu();
+              }}
+            >
+              <Link to={'/men'}>Men</Link>
+            </VerticalLinks>
+            <VerticalLinks
+              onClick={() => {
+                closeMobileMenu();
+              }}
+            >
+              <Link to={'/women'}>Women</Link>
+            </VerticalLinks>
+            <VerticalLinks
+              onClick={() => {
+                closeMobileMenu();
+              }}
+            >
+              {' '}
+              <Link to={'/about'}>About</Link>
+            </VerticalLinks>
+            <VerticalLinks
+              onClick={() => {
+                closeMobileMenu();
+              }}
+            >
+              <Link to={'/contact'}>Contact</Link>
+            </VerticalLinks>
           </UnorderedList>
         </MobileMenuContainer>
       </MainContainer>
