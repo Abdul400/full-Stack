@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+p {
+  font-size: 15px;
+  line-height: 22px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+.comment {
+  min-height: 8rem;
+  width: 100%;
+  display: flex;
+  margin-bottom: 2rem !important;
+}
+/* @keyframes open {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 50%;
+  }
+  100% {
+    width: 100%;
+  }
+} */
+.vote-counter {
+  width: 8%;
+  min-height: 100%;
+}
+.counter-container {
+  height: 4.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.counter {
+  color: #5257bb;
+  font-weight: 500;
+}
+.vote {
+  width: 0.7rem;
+  cursor: pointer;
+}
+.main-comment {
+  min-height: 100%;
+  width: 92%;
+}
+.info-section {
+  width: 100%;
+  height: 2.5rem;
+  margin-bottom: 0.2rem !important;
+}
+.myavatar {
+  width: 2rem;
+  margin-right: 0.5rem !important;
+}
+.username {
+  color: #353c46;
+  font-weight: 500;
+  margin-left: 0.5rem !important;
+  margin-right: 1rem !important;
+}
+.created {
+  margin-right: auto !important;
+  color: #6e7177;
+}
+.reply {
+  width: 10%;
+  height: 100%;
+}
+.comment-section {
+  text-align: left;
+  min-height: 4rem;
+}
+.comment-section > p {
+  color: #6e7177;
+}
+.replyBtn {
+  height: 100% !important;
+  width: 5rem !important;
+  align-items: center;
+  justify-content: right;
+  padding: 10px !important;
+  border: none;
+  background-color: white;
+  color: #5257bb;
+  font-weight: 500;
+  background-color: no-repeat;
+  text-align: right;
+}
+.replyBtn[text] {
+  text-align: right;
+}
+.reply {
+  width: 90% !important;
+  min-height: 5rem !important;
+  display: flex;
+  margin-bottom: 2rem !important;
+  margin-left: auto !important;
+}
+.replyBtnText {
+  color: #5257bb;
+  font-weight: 500;
+}
+.deleteComment {
+  height: 100% !important;
+  width: 6rem !important;
+  align-items: center;
+  justify-content: space-around;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  color: red;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.editComment {
+  height: 100% !important;
+  width: 5rem !important;
+  align-items: center;
+  justify-content: space-around;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  margin-left: 10px !important;
+  font-size: 15px !important;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+}
+.editComment > p {
+  color: #5257bb;
+  font-weight: 500;
+  font-size: 15px;
+}
+.thisUserContainer {
+  height: 1rem;
+  width: 2rem;
+  background-color: #5257bb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px !important;
+}
+.thisUser {
+  color: white;
+  font-size: 12px;
+}
+.newComment {
+  min-height: 5rem;
+  margin-bottom: 2rem !important;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  position: sticky;
+  bottom: 10px !important;
+  background-color: white;
+}
+.currentAvatar {
+  width: 2rem;
+}
+.newCommentInput {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  width: 80%;
+  height: 100% !important;
+  padding: 5px !important;
+  border-radius: 5px;
+  border: none;
+  color: #6e7177;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+}
+.newCommentInput::placeholder {
+  position: relative;
+  bottom: 0.1rem;
+  font-size: 14px;
+  color: #6e7177;
+  font-weight: 500;
+}
+.newCommentInput:focus {
+  border: 2px solid #5257bb !important;
+  outline: none;
+  background-color: white;
+}
+.newCommentInput:active {
+  outline: none;
+}
+.replyTo {
+  color: #5257bb;
+  font-weight: 500;
+}
+.newCommentSend {
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  background-color: #5257bb;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.myModal {
+  position: fixed;
+  background-color: white;
+  height: 13rem;
+  width: 20rem;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 20px !important;
+  z-index: 6;
+  border-radius: 10px;
+  color: #6e7177;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+}
+
+.myModalContainer {
+  position: absolute !important;
+  height: 100% !important;
+  width: 100% !important;
+  background-color: black;
+  opacity: 0.6;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerTitle {
+  color: #2d3541;
+  margin-bottom: 1rem !important;
+}
+.cancelButton {
+  height: 2.5rem;
+  width: 8rem;
+  position: relative;
+  top: 1rem;
+  right: 1.5rem;
+  background-color: #68717e;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
+.deleteButton {
+  height: 2.5rem;
+  width: 8rem;
+  position: relative;
+  top: 1rem;
+  background-color: #ee6367;
+  color: white;
+  border-radius: 5px;
+  border: none;
+}
+.btn-close {
+  position: relative;
+  bottom: 7px !important;
+}
+.editInputContainer {
+  position: relative;
+  bottom: 7rem;
+  right: -2.4rem;
+  min-height: 5rem;
+  width: 95%;
+  display: flex;
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editInput {
+  height: 5rem !important;
+}
+.update {
+  width: 5rem !important;
+}
+
+@media only screen and (max-width: 600px) {
+  p {
+    font-size: 13px;
+    line-height: 20px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+  }
+  .comment {
+    flex-direction: column-reverse;
+    height: 80% !important;
+  }
+  .vote-counter {
+    width: 30%;
+    height: 2.5rem !important;
+  }
+  .main-comment {
+    width: 100%;
+    position: relative;
+  }
+
+  .replyBtn {
+    position: absolute;
+    right: 0;
+    bottom: -2.5rem;
+    height: 2.2rem !important;
+    width: 5rem;
+    font-size: 15px;
+  }
+  .deleteComment,
+  .editComment {
+    position: absolute;
+    right: 0;
+    bottom: -2.5rem;
+    height: 2.2rem !important;
+    width: 4.5rem !important;
+  }
+  .deleteComment {
+    right: 5rem;
+    width: 4.5rem !important;
+    font-size: 13px;
+  }
+  .editComment {
+    font-size: 13px !important;
+    width: 4.5rem !important;
+  }
+  .counter-container {
+    height: 100%;
+    flex-direction: row;
+  }
+  .reply {
+    flex-direction: column-reverse;
+  }
+  .myModal {
+    position: fixed;
+    background-color: white;
+    height: 13rem;
+    width: 20rem;
+  }
+
+  .myModal {
+    position: fixed;
+    background-color: white;
+    height: 13rem;
+    width: 16.5rem;
+  }
+  .cancelButton {
+    height: 2.5rem;
+    width: 7rem;
+    position: relative;
+    top: 1rem;
+    right: -0.1rem;
+  }
+  .deleteButton {
+    height: 2.5rem;
+    width: 7rem;
+    position: relative;
+    right: -0.5rem;
+  }
+  .editInputContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    right: 0;
+    bottom: 8.7rem;
+    min-height: 4.5rem !important;
+  }
+  .editInput {
+    width: 100% !important;
+    right: 0 !important;
+    font-size: 13px;
+    height: 4.5rem !important;
+  }
+  .update {
+    position: absolute;
+    bottom: 5rem;
+    width: 4rem !important;
+    right: 0;
+  }
+}
+@media screen and (max-width: 400px) {
+  .replyUpdate {
+    bottom: -4.5rem !important;
+  }
+}
+@media screen and (max-width: 350px) {
+  .update {
+    bottom: -4.5rem;
+  }
+}
+@media screen and (max-width: 315px) {
+  .editComment {
+    right: 0rem;
+    width: 4rem !important;
+  }
+  .deleteComment {
+    right: 4.5rem;
+    width: 4rem !important;
+  }
+  .newCommentInput::placeholder {
+    font-size: 12px;
+  }
+  .newCommentInput {
+    font-size: 12px;
+  }
+}
