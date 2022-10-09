@@ -35,7 +35,14 @@ function App() {
   });
   rawData.comments = processedObject;
 
-  let [mydata, setData] = useState(rawData);
+  let [mydata, setData] = useState(
+    JSON.parse(localStorage.getItem('myData')!) || rawData
+  );
+  useEffect(() => {
+    console.log('setting item...');
+    localStorage.setItem('myData', JSON.stringify(mydata));
+  }, [mydata]);
+
   const [show, setShow] = useState(false);
   const [forwardedReply, setforwadedReply] = useState({});
   const [forwardedComment, setforwardedComment] = useState({});

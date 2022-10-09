@@ -32,6 +32,10 @@ const Reply = (props: {
     });
   });
 
+  useEffect(() => {
+    localStorage.setItem('myData', JSON.stringify(props.currentData));
+  }, [props.currentData]);
+
   let myforwardedReply: any = props.reply;
   let [isOpen, setIsOpen] = useState(false);
   let [myReply, setMyreply]: any = useState({});

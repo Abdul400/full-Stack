@@ -5,6 +5,10 @@ import moment from 'moment';
 const NewComment = (props: { currentData: any; setData: any }) => {
   let newComment: any = useRef('');
 
+  useEffect(() => {
+    localStorage.setItem('myData', JSON.stringify(props.currentData));
+  }, [props.currentData]);
+
   function getNewid() {
     let idNumber: number =
       props.currentData.comments.flatMap((comment: any) => comment.replies)
@@ -32,14 +36,16 @@ const NewComment = (props: { currentData: any; setData: any }) => {
       timeOfDay = 'PM';
     }
 
-    return `${hours}:${minutes} ${timeOfDay}`;
+    return `${hours >= 10 ? hours : '0' + hours}:${
+      minutes >= 10 ? minutes : '0' + minutes
+    } ${timeOfDay}`;
   }
 
   function createNewComment() {
     let comment = {
       id: getNewid(),
       content: newComment.current.value,
-      createdAt: moment().startOf('minutes').fromNow(),
+      createdAt: getCreatedDate(),
       isSelected: false,
       score: 0,
       user: {

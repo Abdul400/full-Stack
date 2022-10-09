@@ -8,7 +8,7 @@ import close from '../assets/images/icon-close.svg';
 import deleteIcon from '../assets/images/icon-delete.svg';
 import editIcon from '../assets/images/icon-edit.svg';
 import { motion } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Edit from './Edit';
@@ -37,6 +37,10 @@ const Comment = (props: {
   let myEditor: any = useRef('');
 
   console.log(props.currentData);
+
+  useEffect(() => {
+    localStorage.setItem('myData', JSON.stringify(props.currentData));
+  }, [props.currentData]);
 
   function replyToComment(e: any): any {
     console.log(selectedPost);
@@ -91,7 +95,9 @@ const Comment = (props: {
       timeOfDay = 'PM';
     }
 
-    return `${hours}:${minutes} ${timeOfDay}`;
+    return `${hours >= 10 ? hours : '0' + hours}:${
+      minutes >= 10 ? minutes : '0' + minutes
+    } ${timeOfDay}`;
   }
 
   function SendReply(e: any, item: any) {
@@ -113,7 +119,7 @@ const Comment = (props: {
     let newReply = {
       id: getNewid(),
       content: commentTextArea.current.value,
-      createdAt: moment().startOf('minutes').fromNow(),
+      createdAt: getCreatedDate(),
       score: 0,
       replyingTo: item.user.username,
       isSelected: false,
@@ -303,6 +309,13 @@ const Comment = (props: {
       progress: undefined,
       theme: 'colored',
     });
+
+  //DO NOT DELETE!
+  // let timeNow = new Date().getTime() / 1000;
+  // function tellTime(): any {
+  //   return moment.unix(timeNow).local().startOf('seconds').fromNow();
+  // }
+  // setInterval(() => tellTime(), 1000);
 
   return (
     <div>
