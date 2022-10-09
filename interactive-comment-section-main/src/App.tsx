@@ -9,6 +9,8 @@ import MyModal from './components/MyModal';
 import CommentModal from './components/CommentModal';
 import { resolve } from 'path';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [parent]: any = useAutoAnimate({
@@ -22,12 +24,13 @@ function App() {
       return {
         ...comment,
         isSelected: false,
+        isEdited: false,
         replies: comment.replies.map((reply: string[]) => {
-          return { ...reply, isSelected: false };
+          return { ...reply, isSelected: false, isEdited: false };
         }),
       };
     } else {
-      return { ...comment, isSelected: false };
+      return { ...comment, isSelected: false, isEdited: false };
     }
   });
   rawData.comments = processedObject;
@@ -168,6 +171,17 @@ function App() {
           ></CommentModal>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

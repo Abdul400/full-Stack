@@ -155,7 +155,8 @@ p {
 .newComment {
   min-height: 5rem;
   margin-bottom: 2rem !important;
-  width: 100%;
+  width: 98%;
+  margin-left: auto !important ;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -171,7 +172,7 @@ p {
   margin-right: auto !important;
   margin-left: auto !important;
   width: 80%;
-  height: 100% !important;
+  height: 4rem;
   padding: 5px !important;
   border-radius: 5px;
   border: none;
@@ -273,7 +274,6 @@ p {
 .editInputContainer {
   position: relative;
   bottom: 7rem;
-  right: -2.4rem;
   min-height: 5rem;
   width: 95%;
   display: flex;
@@ -288,8 +288,180 @@ p {
 .update {
   width: 5rem !important;
 }
-
+.editInputContainer {
+  bottom: 5rem !important;
+  border: 2px solid red;
+  width: 100% !important;
+}
+.newReply {
+  width: 88% !important;
+  position: relative;
+  min-height: 5rem;
+  margin-left: auto !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem !important;
+}
+.newReplyInput {
+  width: 80%;
+  height: 4rem;
+  border: none;
+  border-radius: 5px;
+  padding: 5px !important;
+  color: #6e7177;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+}
+.newReplyInput:focus {
+  border: 2px solid #5257bb;
+  outline: none;
+}
+.newReplyInput::placeholder {
+  position: relative;
+  bottom: 0.1rem;
+  font-size: 14px;
+  color: #6e7177;
+  font-weight: 500;
+}
+.newReplySend {
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  background-color: #5257bb;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.replyEditInputContainer {
+  border: 2px solid black;
+  width: 83% !important;
+  position: relative;
+  min-height: 5rem;
+  margin-left: auto !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  bottom: 5.5rem;
+}
+.replyEditInput {
+  width: 100%;
+  height: 5rem;
+  border: none;
+  border-radius: 5px;
+  padding: 5px !important;
+  color: #6e7177;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+}
+.replyEditInput:focus {
+  border: 2px solid #5257bb;
+  outline: none;
+}
+.replyUpdate {
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  background-color: #5257bb;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  bottom: -3rem;
+}
+.commentEditInputContainer {
+  border: 2px solid black;
+  width: 92% !important;
+  position: relative;
+  min-height: 5rem;
+  margin-left: auto !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  bottom: 5.5rem;
+}
+.commentEditInput {
+  width: 100%;
+  height: 5rem;
+  border: none;
+  border-radius: 5px;
+  padding: 5px !important;
+  color: #6e7177;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+}
+.commentEditInput:focus {
+  border: 2px solid #5257bb;
+  outline: none;
+}
+.commentUpdate {
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  background-color: #5257bb;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  bottom: -3rem;
+}
+.edited {
+  color: #419a51;
+  font-size: 15px;
+  line-height: 20px;
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400;
+  position: relative;
+  right: 5rem;
+}
+@media only screen and (max-width: 750px) {
+  .edited {
+    font-size: 12px;
+    right: 1.2rem;
+  }
+}
 @media only screen and (max-width: 600px) {
+  .commentEditInputContainer {
+    bottom: 9rem;
+    margin-bottom: -4rem !important;
+    width: 100% !important;
+  }
+  .commentEditInput {
+    height: 5rem;
+    font-size: 13px;
+  }
+  .commentUpdate {
+    bottom: 5.5rem;
+  }
+  .replyEditInputContainer {
+    bottom: 9rem;
+    margin-bottom: -5rem !important;
+    width: 90% !important;
+  }
+  .replyEditInput {
+    height: 5rem;
+    font-size: 13px;
+  }
+  .replyUpdate {
+    bottom: 5.5rem;
+  }
+  .newReplyInput {
+    font-size: 13px;
+  }
+  .newCommentInput::placeholder {
+    font-size: 13px;
+  }
   p {
     font-size: 13px;
     line-height: 20px;
@@ -391,7 +563,19 @@ p {
 }
 @media screen and (max-width: 400px) {
   .replyUpdate {
-    bottom: -4.5rem !important;
+    bottom: -4.2rem !important;
+  }
+  .commentUpdate {
+    bottom: -4.2rem !important;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .edited {
+    font-size: 12px;
+    right: 6rem;
+    bottom: 1.2rem;
+    text-align: center;
   }
 }
 @media screen and (max-width: 350px) {

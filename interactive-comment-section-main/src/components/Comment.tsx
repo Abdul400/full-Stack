@@ -12,6 +12,10 @@ import { useState, useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Edit from './Edit';
+import JSONdata from '../../../data.json';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 const Comment = (props: {
   score: number;
@@ -109,7 +113,7 @@ const Comment = (props: {
     let newReply = {
       id: getNewid(),
       content: commentTextArea.current.value,
-      createdAt: getCreatedDate(),
+      createdAt: moment().startOf('minutes').fromNow(),
       score: 0,
       replyingTo: item.user.username,
       isSelected: false,
@@ -215,7 +219,11 @@ const Comment = (props: {
         ...prevData,
         comments: prevData.comments.map((item: any) => {
           if (item === props.comment) {
-            return { ...item, content: myEditor.current.value };
+            return {
+              ...item,
+              content: myEditor.current.value,
+              isEdited: true,
+            };
           } else {
             return item;
           }
@@ -224,15 +232,96 @@ const Comment = (props: {
     });
     openEditor();
   }
+  let currentScore: any = JSONdata.comments.find(
+    (item) => item.id === props.comment.id
+  );
+  function increaseCount() {
+    console.log('...increasing');
+    if (
+      props.comment.user.username !== props.currentData.currentUser.username
+    ) {
+      props.setData((prevData: any) => {
+        return {
+          ...prevData,
+          comments: prevData.comments.map((comment: any) => {
+            if (comment === props.comment) {
+              if (
+                props.comment.user.username !==
+                  props.currentData.currentUser.username &&
+                (currentScore.score === comment.score ||
+                  currentScore.score - 1 === comment.score)
+              ) {
+                return { ...comment, score: comment.score + 1 };
+              } else {
+                return comment;
+              }
+            } else {
+              return comment;
+            }
+          }),
+        };
+      });
+    } else {
+      notify();
+    }
+  }
+  function decreaseCount() {
+    if (
+      props.comment.user.username !== props.currentData.currentUser.username
+    ) {
+      props.setData((prevData: any) => {
+        return {
+          ...prevData,
+          comments: prevData.comments.map((comment: any) => {
+            if (comment === props.comment) {
+              if (
+                currentScore.score === comment.score ||
+                currentScore.score + 1 === comment.score
+              ) {
+                return { ...comment, score: comment.score - 1 };
+              } else {
+                return comment;
+              }
+            } else {
+              return comment;
+            }
+          }),
+        };
+      });
+    } else {
+      notify();
+    }
+  }
+  const notify = () =>
+    toast.error('You cannot Downvote or Upvote your own comment!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   return (
     <div>
       <div className="comment" ref={scrollTo}>
         <div className="vote-counter p-2 m-0">
           <div className="counter-container">
-            <img className="vote upvote" src={upvote} alt="upvote" />
+            <img
+              className="vote upvote"
+              src={upvote}
+              onClick={increaseCount}
+              alt="upvote"
+            />
             <p className="counter">{props.score}</p>
-            <img className="vote downvote" src={downvote} alt="downvote" />
+            <img
+              className="vote downvote"
+              src={downvote}
+              alt="downvote"
+              onClick={decreaseCount}
+            />
           </div>
         </div>
         <div className="main-comment">
@@ -253,6 +342,7 @@ const Comment = (props: {
             <p className="created">{props.createdAt}</p>
             {props.user.username === props.currentUser ? (
               <>
+                {props.comment.isEdited && <p className="edited">Edited</p>}
                 <button
                   className="deleteComment"
                   onClick={(e) => props.openMyCommentModal(selectedComment)}
@@ -273,7 +363,7 @@ const Comment = (props: {
                     backgroundImage: `url(${editIcon})`,
                     backgroundPosition: '0% 50%',
                     backgroundRepeat: 'no-repeat',
-                    color: `${props.comment.isSelected ? 'red' : '#5257BB'}`,
+                    color: '#5257BB',
                     textAlign: 'right',
                   }}
                   onClick={(e) => openEditor()}
@@ -354,19 +444,19 @@ const Comment = (props: {
         ) {
           return (
             <motion.div
-              className="editInputContainer"
+              className="commentEditInputContainer"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
               <textarea
-                className="newCommentInput editInput"
+                className="commentEditInput"
                 ref={myEditor}
                 defaultValue={props.comment.content}
                 autoFocus
               ></textarea>
-              <button className="newCommentSend update" onClick={updateComment}>
-                Update
+              <button className="commentUpdate" onClick={updateComment}>
+                UPDATE
               </button>
             </motion.div>
           );

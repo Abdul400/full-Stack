@@ -8,6 +8,9 @@ import editIcon from '../assets/images/icon-edit.svg';
 import { motion } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import close from '../assets/images/icon-close.svg';
+import JSONdata from '../../../data.json';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Reply = (props: {
   score: number;
@@ -258,7 +261,11 @@ const Reply = (props: {
             ...item,
             replies: item.replies.map((reply: any) => {
               if (reply === props.reply) {
-                return { ...reply, content: myReplyEditor.current.value };
+                return {
+                  ...reply,
+                  content: myReplyEditor.current.value,
+                  isEdited: true,
+                };
               } else {
                 return reply;
               }
@@ -269,15 +276,113 @@ const Reply = (props: {
     });
     openEditor();
   }
+  let currentScore: any;
 
+  for (let i = 0; i < JSONdata.comments.length; i++) {
+    currentScore = JSONdata.comments[i].replies.find(
+      (item) => item.id === props.reply.id
+    );
+  }
+
+  console.log(currentScore);
+
+  function increaseCount() {
+    if (props.reply.user.username !== props.currentData.currentUser.username) {
+      props.setData((prevData: any) => {
+        return {
+          ...prevData,
+          comments: prevData.comments.map((item: any) => {
+            return {
+              ...item,
+              replies: item.replies.map((reply: any) => {
+                if (reply === props.reply) {
+                  if (
+                    currentScore.score === reply.score ||
+                    currentScore.score - 1 === reply.score
+                  ) {
+                    return {
+                      ...reply,
+                      score: reply.score + 1,
+                    };
+                  } else {
+                    return reply;
+                  }
+                } else {
+                  return reply;
+                }
+              }),
+            };
+          }),
+        };
+      });
+    } else {
+      notify();
+    }
+  }
+  function decreaseCount() {
+    if (props.reply.user.username !== props.currentData.currentUser.username) {
+      props.setData((prevData: any) => {
+        return {
+          ...prevData,
+          comments: prevData.comments.map((item: any) => {
+            return {
+              ...item,
+              replies: item.replies.map((reply: any) => {
+                if (reply === props.reply) {
+                  if (
+                    (props.reply.user.username !==
+                      props.currentData.currentUser.username &&
+                      currentScore.score === reply.score) ||
+                    currentScore.score + 1 === reply.score
+                  ) {
+                    return {
+                      ...reply,
+                      score: reply.score - 1,
+                    };
+                  } else {
+                    return reply;
+                  }
+                } else {
+                  return reply;
+                }
+              }),
+            };
+          }),
+        };
+      });
+    } else {
+      notify();
+    }
+  }
+  const notify = () =>
+    toast.error('You cannot Downvote or Upvote your own reply!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'dark',
+    });
   return (
     <div>
       <div className="reply" ref={scrollTo}>
         <div className="vote-counter p-2 m-0">
           <div className="counter-container">
-            <img className="vote upvote" src={upvote} alt="upvote" />
+            <img
+              className="vote upvote"
+              src={upvote}
+              alt="upvote"
+              onClick={increaseCount}
+            />
             <p className="counter">{props.score}</p>
-            <img className="vote downvote" src={downvote} alt="downvote" />
+            <img
+              className="vote downvote"
+              src={downvote}
+              alt="downvote"
+              onClick={decreaseCount}
+            />
           </div>
         </div>
         <div className="main-comment">
@@ -298,6 +403,7 @@ const Reply = (props: {
             <p className="created">{props.createdAt}</p>
             {props.user.username === props.currentUser ? (
               <>
+                {props.reply.isEdited && <p className="edited">Edited</p>}
                 <button
                   className="deleteComment"
                   onClick={(e) => props.openModal(e, myforwardedReply)}
@@ -322,7 +428,7 @@ const Reply = (props: {
                   }}
                   onClick={openEditor}
                 >
-                  Edit
+                  {props.reply.isSelected ? 'Cancel' : 'Edit'}
                 </button>
               </>
             ) : (
@@ -350,10 +456,10 @@ const Reply = (props: {
                 props.reply.user.username ? (
                 ''
               ) : (
-                <>
+                <p className="replied">
                   <span className="replyTo">@{props.replyingTo} </span>
-                  <p className="replied">{props.content}</p>
-                </>
+                  {props.content}
+                </p>
               )}
             </p>
           </div>
@@ -389,25 +495,25 @@ const Reply = (props: {
         ) {
           return (
             <motion.div
-              className="replyInput"
+              className="reply_replyInput"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="newComment">
+              <div className="newReply">
                 <img
                   className="currentAvatar"
                   src={props.currentData.currentUser.image.png}
                   alt="current user"
                 />
                 <textarea
-                  className="newCommentInput"
+                  className="newReplyInput"
                   placeholder="Add a reply..."
                   ref={commentTextArea}
                   autoFocus
                 ></textarea>
                 <button
-                  className="newCommentSend"
+                  className="newReplySend"
                   onClick={(e) => SendReply(e, item)}
                 >
                   REPLY
@@ -422,21 +528,18 @@ const Reply = (props: {
         ) {
           return (
             <motion.div
-              className="editInputContainer"
+              className="replyEditInputContainer"
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
               <textarea
-                className="newCommentInput editInput"
+                className="replyEditInput"
                 ref={myReplyEditor}
                 defaultValue={props.reply.content}
                 autoFocus
               ></textarea>
-              <button
-                className="newCommentSend update replyUpdate"
-                onClick={updateReply}
-              >
+              <button className="replyUpdate" onClick={updateReply}>
                 Update
               </button>
             </motion.div>

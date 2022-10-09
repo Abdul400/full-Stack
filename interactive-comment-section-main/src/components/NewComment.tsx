@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRef, useEffect } from 'react';
+import moment from 'moment';
 
 const NewComment = (props: { currentData: any; setData: any }) => {
   let newComment: any = useRef('');
@@ -38,7 +39,7 @@ const NewComment = (props: { currentData: any; setData: any }) => {
     let comment = {
       id: getNewid(),
       content: newComment.current.value,
-      createdAt: getCreatedDate(),
+      createdAt: moment().startOf('minutes').fromNow(),
       isSelected: false,
       score: 0,
       user: {
