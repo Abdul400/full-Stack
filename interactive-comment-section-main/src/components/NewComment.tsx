@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRef, useEffect } from 'react';
 import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewComment = (props: { currentData: any; setData: any }) => {
   let newComment: any = useRef('');
@@ -45,7 +47,8 @@ const NewComment = (props: { currentData: any; setData: any }) => {
     let comment = {
       id: getNewid(),
       content: newComment.current.value,
-      createdAt: getCreatedDate(),
+      createdAt: new Date().getTime() / 1000,
+      relativeTime: 'a few seconds ago',
       isSelected: false,
       score: 0,
       user: {
@@ -54,8 +57,6 @@ const NewComment = (props: { currentData: any; setData: any }) => {
       },
       replies: [],
     };
-    console.log('test');
-    console.log(props.currentData);
     if (newComment.current.value != '') {
       props.setData((prevData: any) => {
         return {
@@ -65,6 +66,11 @@ const NewComment = (props: { currentData: any; setData: any }) => {
       });
     }
     //setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 1000);
+    newCommentAdded();
+    const myInterval = setInterval(() => {
+      newComment.current.value = '';
+      clearInterval(myInterval);
+    }, 1000);
   }
 
   useEffect(() => {
@@ -74,7 +80,6 @@ const NewComment = (props: { currentData: any; setData: any }) => {
         newComment.current.value != '' &&
         allItems[i].textContent.includes(newComment.current.value)
       ) {
-        console.log(allItems[i]);
         allItems[i].scrollIntoView({
           behavior: 'smooth',
           block: 'start',
@@ -114,8 +119,19 @@ const NewComment = (props: { currentData: any; setData: any }) => {
         );
       }
     }
-    newComment.current.value = '';
   }, [props.currentData]);
+
+  const newCommentAdded = () =>
+    toast.success('New comment added', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   return (
     <div className="newComment">

@@ -11,6 +11,7 @@ import close from '../assets/images/icon-close.svg';
 import JSONdata from '../../../data.json';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 const Reply = (props: {
   score: number;
@@ -25,6 +26,7 @@ const Reply = (props: {
   id: number;
   comment: any;
   openModal: any;
+  relativeTime: any;
 }) => {
   let myArray = props.currentData.comments.flatMap((comment: any) => {
     return comment.replies.map((reply: any) => {
@@ -110,9 +112,6 @@ const Reply = (props: {
   }
 
   function SendReply(e: any, item: any) {
-    console.log(myReply);
-    console.log(isOpen);
-
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -135,7 +134,8 @@ const Reply = (props: {
     let newReply = {
       id: getNewid(),
       content: commentTextArea.current.value,
-      createdAt: getCreatedDate(),
+      createdAt: new Date().getTime() / 1000,
+      relativeTime: 'a few seconds ago',
       score: 0,
       replyingTo: item.user.username,
       isSelected: false,
@@ -146,22 +146,17 @@ const Reply = (props: {
       },
     };
 
-    console.log(newReply);
     let replyArray: any = props.comment.replies;
-    console.log(replyArray);
     replyArray.push(newReply);
     let newReplyArray = replyArray;
-    console.log(newReplyArray);
 
     props.setData((prevData: any) => {
       return {
         ...prevData,
         comments: prevData.comments.map((eachComment: any) => {
           if (eachComment === props.comment) {
-            console.log(eachComment);
             return { ...eachComment, replies: [...newReplyArray] };
           } else {
-            console.log('hereeeee');
             return eachComment;
           }
         }),
@@ -173,7 +168,6 @@ const Reply = (props: {
     setTimeout(() => {
       for (let i = 0; i < allItems.length; i++) {
         if (allItems[i].textContent.includes(newContent)) {
-          console.log(allItems[i]);
           allItems[i].scrollIntoView({
             behavior: 'smooth',
             block: 'start',
@@ -222,19 +216,15 @@ const Reply = (props: {
 
     // setTimeout(() => {
     //   let myItem = scrollTo.current.parentNode.parentNode.children[number - 1];
-    //   console.log(scrollTo.current.parentNode.parentNode.children);
     //   myItem.scrollIntoView({ behavior: 'smooth' });
     // }, 1000);
     //scrollTo.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   // function deleteReply(e: any) {
-  //   console.log(e.target);
-  //   console.log(props.reply);
   // }
 
   function openEditor() {
-    console.log(props.comment);
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -256,7 +246,6 @@ const Reply = (props: {
     });
   }
   function updateReply() {
-    console.log(myReplyEditor.current.value);
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -279,6 +268,7 @@ const Reply = (props: {
       };
     });
     openEditor();
+    replyEdited();
   }
   let currentScore: any;
 
@@ -287,8 +277,6 @@ const Reply = (props: {
       (item) => item.id === props.reply.id
     );
   }
-
-  console.log(currentScore);
 
   function increaseCount() {
     if (props.reply.user.username !== props.currentData.currentUser.username) {
@@ -319,6 +307,7 @@ const Reply = (props: {
           }),
         };
       });
+      upvoteComment();
     } else {
       notify();
     }
@@ -354,6 +343,7 @@ const Reply = (props: {
           }),
         };
       });
+      downvoteComment();
     } else {
       notify();
     }
@@ -369,6 +359,71 @@ const Reply = (props: {
       progress: undefined,
       theme: 'dark',
     });
+  const replyEdited = () =>
+    toast.info('reply/comment updated successfully', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  const downvoteComment = () =>
+    toast('👎', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  const upvoteComment = () =>
+    toast('👍', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  function updateMyReplyTime() {
+    props.setData((prevData: any) => {
+      return {
+        ...prevData,
+        comments: prevData.comments.map((comment: any) => {
+          return {
+            ...comment,
+            replies: comment.replies.map((reply: any) => {
+              if (typeof reply.createdAt === 'number') {
+                return {
+                  ...reply,
+                  relativeTime: moment
+                    .unix(reply.createdAt)
+                    .local()
+                    .startOf('seconds')
+                    .fromNow(),
+                };
+              } else {
+                return reply;
+              }
+            }),
+          };
+        }),
+      };
+    });
+  }
+  useEffect((): any => {
+    const interval = setInterval(() => updateMyReplyTime(), 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div>
       <div className="reply" ref={scrollTo}>
@@ -404,10 +459,12 @@ const Reply = (props: {
             ) : (
               ''
             )}
-            <p className="created">{props.createdAt}</p>
+            <p className="created">
+              {' '}
+              {props.relativeTime ? props.relativeTime : props.createdAt}
+            </p>
             {props.user.username === props.currentUser ? (
               <>
-                {props.reply.isEdited && <p className="edited">Edited</p>}
                 <button
                   className="deleteComment"
                   onClick={(e) => props.openModal(e, myforwardedReply)}
@@ -454,18 +511,17 @@ const Reply = (props: {
             )}
           </div>
           <div className="comment-section h-80% w-100 pt-1">
-            <p>
-              {props.reply.isSelected &&
-              props.currentData.currentUser.username ===
-                props.reply.user.username ? (
-                ''
-              ) : (
-                <p className="replied">
-                  <span className="replyTo">@{props.replyingTo} </span>
-                  {props.content}
-                </p>
-              )}
-            </p>
+            {props.reply.isSelected &&
+            props.currentData.currentUser.username ===
+              props.reply.user.username ? (
+              ''
+            ) : (
+              <p className="replied">
+                <span className="replyTo">@{props.replyingTo} </span>
+                {props.content}
+              </p>
+            )}
+            {props.reply.isEdited && <p className="edited">Edited</p>}
           </div>
         </div>
       </div>

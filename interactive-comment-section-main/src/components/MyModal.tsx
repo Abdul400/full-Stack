@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../App.css';
+import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 function MyModal({
   closeModal,
@@ -13,19 +15,12 @@ function MyModal({
   forwardedComment,
   deleteComment,
 }: any) {
-  console.log(forwadedReply);
-  console.log(forwardedComment);
-
   // function deleteReply() {
-  //   console.log('deleting...');
   // setData((prevData: any) => {
   //   return {
   //     ...prevData,
   //     comments: prevData.comments.map((comment: any) => {
   //       if (comment.replies.includes(forwadedReply)) {
-  //         console.log('match found!!');
-  //         console.log(forwadedReply);
-  //         console.log(comment);
   //         return {
   //           ...comment,
   //           replies: comment.replies.filter(
@@ -39,7 +34,6 @@ function MyModal({
   //   };
   // });
 
-  // console.log(currentData);
   // let myreplyArray: any = [];
   // let myComment: any = {};
   // for (let i = 0; i < currentData.comments.length; i++) {
@@ -52,8 +46,6 @@ function MyModal({
   // let mynewReplyArray = myreplyArray.filter(
   //   (item: any) => item.id != forwadedReply.id
   // );
-  // console.log(myreplyArray);
-  // console.log(mynewReplyArray);
 
   // setData((prevData: any) => {
   //   return {
@@ -71,7 +63,6 @@ function MyModal({
   //   };
   // });
   // }
-  // console.log(forwadedReply);
 
   return (
     <>

@@ -11,6 +11,7 @@ import { resolve } from 'path';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
 
 function App() {
   const [parent]: any = useAutoAnimate({
@@ -39,7 +40,6 @@ function App() {
     JSON.parse(localStorage.getItem('myData')!) || rawData
   );
   useEffect(() => {
-    console.log('setting item...');
     localStorage.setItem('myData', JSON.stringify(mydata));
   }, [mydata]);
 
@@ -57,23 +57,14 @@ function App() {
   const openModal = (e: any, myforwardedReply: any) => {
     setforwadedReply(myforwardedReply);
     setShow(true);
-    console.log(e.target);
-    console.log(myforwardedReply);
   };
-  console.log(forwardedReply);
-  console.log(forwardedComment);
 
   function deleteReply() {
     setData((prevData: any) => {
       return {
         ...prevData,
         comments: prevData.comments.map((comment: any) => {
-          console.log('tsting if it reaches here');
-          console.log(forwardedReply);
           if (comment.replies.includes(forwardedReply)) {
-            console.log('match found!!');
-            console.log(forwardedReply);
-            console.log(comment);
             return {
               ...comment,
               replies: comment.replies.filter(
@@ -87,6 +78,7 @@ function App() {
       };
     });
     closeModal();
+    commentDeleted();
   }
   function deleteComment() {
     setData((prevData: any) => {
@@ -98,9 +90,9 @@ function App() {
       };
     });
     closeCommentModal();
+    commentDeleted();
   }
   function openMyCommentModal(selectedComment: any) {
-    console.log(selectedComment);
     setforwardedComment(selectedComment);
     openCommentModal();
   }
@@ -110,6 +102,7 @@ function App() {
       return (
         <>
           <Comment
+            relativeTime={comment.relativeTime ? comment.relativeTime : ''}
             {...comment}
             currentData={mydata}
             comment={comment}
@@ -124,6 +117,7 @@ function App() {
             return (
               <Reply
                 {...reply}
+                relativeTime={reply.relativeTime ? reply.relativeTime : ''}
                 currentUser={mydata.currentUser.username}
                 currentData={mydata}
                 reply={reply}
@@ -139,6 +133,7 @@ function App() {
     } else {
       return (
         <Comment
+          relativeTime={comment.relativeTime ? comment.relativeTime : ''}
           {...comment}
           currentData={mydata}
           comment={comment}
@@ -149,6 +144,70 @@ function App() {
       );
     }
   });
+
+  const commentDeleted = () =>
+    toast.warning('comment/reply deleted', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  // function updateCommentDate() {
+  //   //let timeNow = new Date().getTime() / 1000;
+  //   setData((prevData: any) => {
+  //     return {
+  //       ...prevData,
+  //       comments: prevData.comments.map((comment: any) => {
+  //         if (typeof comment.createdAt === 'number') {
+  //           return {
+  //             ...comment,
+  //             relativeTime: moment
+  //               .unix(comment.createdAt)
+  //               .local()
+  //               .startOf('seconds')
+  //               .fromNow(),
+  //           };
+  //         } else {
+  //           return comment;
+  //         }
+  //       }),
+  //     };
+  //   });
+
+  //   setData((prevData: any) => {
+  //     return {
+  //       ...prevData,
+  //       comments: prevData.comments.map((comment: any) => {
+  //         return {
+  //           ...comment,
+  //           replies: comment.replies.map((reply: any) => {
+  //             if (typeof reply.createdAt === 'number') {
+  //               return {
+  //                 ...reply,
+  //                 relativeTime: moment
+  //                   .unix(reply.createdAt)
+  //                   .local()
+  //                   .startOf('seconds')
+  //                   .fromNow(),
+  //               };
+  //             } else {
+  //               return reply;
+  //             }
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   });
+
+  //   // return moment.unix(timeNow).local().startOf('seconds').fromNow();
+  //   //
+  // }
+  // setInterval(() => updateCommentDate(), 60000);
 
   return (
     <>
@@ -170,7 +229,7 @@ function App() {
         </div>
       )}
       {commentShow && (
-        <div className="myModalContainer" onClick={closeCommentModal}>
+        <div className="myModalContainer">
           <CommentModal
             show={commentShow}
             deleteComment={deleteComment}

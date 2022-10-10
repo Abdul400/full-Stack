@@ -28,6 +28,7 @@ const Comment = (props: {
   setData: any;
   currentUser: string;
   openMyCommentModal: any;
+  relativeTime: any;
 }) => {
   let [selectedPost, setSelectedPost] = useState({});
   let [isOpen, setIsOpen] = useState(false);
@@ -36,16 +37,12 @@ const Comment = (props: {
   let selectedComment: any = props.comment;
   let myEditor: any = useRef('');
 
-  console.log(props.currentData);
-
   useEffect(() => {
     localStorage.setItem('myData', JSON.stringify(props.currentData));
   }, [props.currentData]);
 
   function replyToComment(e: any): any {
-    console.log(selectedPost);
     setIsOpen(!isOpen);
-    console.log(isOpen);
     let selectedItem = props.currentData.comments.find(
       (item: any) => item.id.toString() === e.target.value
     );
@@ -101,9 +98,6 @@ const Comment = (props: {
   }
 
   function SendReply(e: any, item: any) {
-    console.log(selectedPost);
-    console.log(isOpen);
-
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -119,7 +113,8 @@ const Comment = (props: {
     let newReply = {
       id: getNewid(),
       content: commentTextArea.current.value,
-      createdAt: getCreatedDate(),
+      createdAt: new Date().getTime() / 1000,
+      relativeTime: 'a few seconds ago',
       score: 0,
       replyingTo: item.user.username,
       isSelected: false,
@@ -129,19 +124,15 @@ const Comment = (props: {
       },
     };
 
-    console.log(newReply);
     let replyArray: any = item.replies;
-    console.log(replyArray);
     replyArray.push(newReply);
     let newReplyArray = replyArray;
-    console.log(newReplyArray);
 
     props.setData((prevData: any) => {
       return {
         ...prevData,
         comments: prevData.comments.map((eachComment: any) => {
           if (eachComment === item) {
-            console.log(eachComment);
             return { ...eachComment, replies: [...newReplyArray] };
           } else {
             return eachComment;
@@ -154,7 +145,6 @@ const Comment = (props: {
     setTimeout(() => {
       for (let i = 0; i < allItems.length; i++) {
         if (allItems[i].textContent.includes(newContent)) {
-          console.log(allItems[i]);
           allItems[i].scrollIntoView({
             behavior: 'smooth',
             block: 'start',
@@ -196,10 +186,10 @@ const Comment = (props: {
         }
       }
     }, 500);
+    newCommentReply();
   }
 
   function openEditor() {
-    console.log(props.comment);
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -219,7 +209,6 @@ const Comment = (props: {
     });
   }
   function updateComment() {
-    console.log(myEditor.current.value);
     props.setData((prevData: any) => {
       return {
         ...prevData,
@@ -237,12 +226,12 @@ const Comment = (props: {
       };
     });
     openEditor();
+    commentEdited();
   }
   let currentScore: any = JSONdata.comments.find(
     (item) => item.id === props.comment.id
   );
   function increaseCount() {
-    console.log('...increasing');
     if (
       props.comment.user.username !== props.currentData.currentUser.username
     ) {
@@ -267,6 +256,7 @@ const Comment = (props: {
           }),
         };
       });
+      upvoteComment();
     } else {
       notify();
     }
@@ -294,6 +284,7 @@ const Comment = (props: {
           }),
         };
       });
+      downvoteComment();
     } else {
       notify();
     }
@@ -310,12 +301,85 @@ const Comment = (props: {
       theme: 'colored',
     });
 
+  const newCommentReply = () =>
+    toast.success('New reply added', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  const commentEdited = () =>
+    toast.info('comment/reply Edited successfully', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  const downvoteComment = () =>
+    toast('👎', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  const upvoteComment = () =>
+    toast('👍', {
+      position: 'top-center',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
   //DO NOT DELETE!
   // let timeNow = new Date().getTime() / 1000;
   // function tellTime(): any {
   //   return moment.unix(timeNow).local().startOf('seconds').fromNow();
   // }
   // setInterval(() => tellTime(), 1000);
+
+  function updateCommentTime() {
+    props.setData((prevData: any) => {
+      return {
+        ...prevData,
+        comments: prevData.comments.map((comment: any) => {
+          if (typeof comment.createdAt === 'number') {
+            return {
+              ...comment,
+              relativeTime: moment
+                .unix(comment.createdAt)
+                .local()
+                .startOf('seconds')
+                .fromNow(),
+            };
+          } else {
+            return comment;
+          }
+        }),
+      };
+    });
+  }
+
+  useEffect((): any => {
+    const interval = setInterval(() => updateCommentTime(), 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -352,10 +416,11 @@ const Comment = (props: {
             ) : (
               ''
             )}
-            <p className="created">{props.createdAt}</p>
+            <p className="created">
+              {props.relativeTime ? props.relativeTime : props.createdAt}
+            </p>
             {props.user.username === props.currentUser ? (
               <>
-                {props.comment.isEdited && <p className="edited">Edited</p>}
                 <button
                   className="deleteComment"
                   onClick={(e) => props.openMyCommentModal(selectedComment)}
@@ -411,6 +476,7 @@ const Comment = (props: {
             ) : (
               <p className="replied">{props.content}</p>
             )}
+            {props.comment.isEdited && <p className="edited">Edited</p>}
           </div>
         </div>
       </div>
