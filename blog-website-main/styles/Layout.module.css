@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+.layout {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.navbar {
+  width: 100%;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5rem;
+  padding-right: 6rem;
+  background-color: #515a47;
+}
+.logoContainer {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.logo {
+  width: 4rem;
+  cursor: pointer;
+}
+.linksContainer {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.linksContainer ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.linksContainer ul > li {
+  list-style-type: none;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5rem;
+}
+.linksContainer ul li > a {
+  font-family: 'Rubik', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #d7be82;
+}
+.linksContainer ul > li:hover {
+  border-bottom: 5px solid #d7be82;
+  transition: border 0.3s ease-in-out;
+}
+
+@media only screen and (max-width: 660px) {
+  .linksContainer ul li > a {
+    font-size: 15px;
+  }
+  .linksContainer ul > li {
+    margin-left: 2.5rem;
+  }
+  .linksContainer {
+    width: 50%;
+    padding-right: 1rem;
+  }
+  .logoContainer {
+    width: 50%;
+    padding-left: 1rem;
+  }
+  .navbar {
+    justify-content: space-between;
+    padding: 0;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .logoContainer {
+    width: 40%;
+  }
+  .linksContainer {
+    width: 60%;
+  }
+}
