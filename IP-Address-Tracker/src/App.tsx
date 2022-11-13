@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import myIcon from '../src/assets/images/icon-location.svg';
+import arrow from '../src/assets/images/icon-arrow.svg';
 
 let DefaultIcon = L.icon({
   iconUrl: myIcon,
@@ -112,7 +113,7 @@ function App() {
             placeholder="Search for any IP address or domain"
           />
           <button className="search" onClick={() => getData()}>
-            <img src="../src/assets/images/icon-arrow.svg" alt="find" />
+            <img src={arrow} alt="find" />
           </button>
         </div>
         {show && myData !== undefined && (
