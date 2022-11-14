@@ -116,7 +116,7 @@ function App() {
             <img src={arrow} alt="find" />
           </button>
         </div>
-        {show && myData !== undefined && (
+        {myData !== undefined && (
           <div className="result">
             <div className="ipAddressContainer">
               <p className="ipText">IP Address</p>

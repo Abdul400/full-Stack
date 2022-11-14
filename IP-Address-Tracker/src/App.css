@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
 
 #root {
-  height: 100vh;
+  height: 110vh;
   width: 100%;
 }
 .App {
@@ -22,6 +22,7 @@
   align-items: center;
   flex-direction: column;
   padding-top: 2rem;
+  position: relative;
 }
 .bottom-container {
   height: 65%;
@@ -48,6 +49,11 @@
   border: none;
   padding: 1rem;
 }
+.myInput:active,
+.myInput:focus {
+  outline: none;
+  border: none;
+}
 .search {
   position: absolute;
   height: 100%;
@@ -55,6 +61,13 @@
   background-color: black;
   right: 0;
   cursor: pointer;
+  border: none;
+  outline: none;
+}
+.search:active,
+.search:focus {
+  outline: none;
+  border: none;
 }
 .result {
   height: 8rem;
@@ -63,7 +76,7 @@
   position: absolute;
   z-index: 5;
   border-radius: 10px;
-  top: 12rem;
+  bottom: -4rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -160,6 +173,7 @@
     height: 130vh;
   }
   .result {
+    bottom: -7rem;
     height: 15rem;
     width: 30rem;
     flex-direction: column;
