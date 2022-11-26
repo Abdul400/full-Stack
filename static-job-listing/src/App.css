@@ -1,0 +1,533 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap');
+#root {
+  width: 100%;
+  min-height: 48rem;
+  background-color: #f0fafb;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #63baba;
+  border-radius: 10px;
+}
+.App {
+  width: 100%;
+  height: 100%;
+}
+.top-section {
+  height: 10rem;
+  width: 100%;
+  background-image: url('./images/bg-header-desktop.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.searchBar {
+  min-height: 4rem;
+  width: 80%;
+  background-color: white;
+  position: absolute;
+  bottom: -2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 10px 30px 0px #afd9dd;
+  border-radius: 5px;
+}
+.react-select__input {
+  color: #5ba4a4 !important;
+  font-family: 'League Spartan', sans-serif !important;
+  font-weight: 600 !important;
+}
+.react-select__placeholder {
+  color: #5ba4a4 !important;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+}
+.css-tlfecz-indicatorContainer {
+  color: #5ba4a4 !important;
+}
+.react-select__menu {
+  background-color: #f2fdfd;
+  color: #5ba4a4;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+}
+.react-select__control {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  height: 100%;
+  border: 2px solid red;
+}
+.react-select__control {
+  color: #5ba4a4;
+  border: 2px solid red;
+}
+.react-select__control--is-focused {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.react-select__clear-indicator::after {
+  content: 'Clear';
+  color: #5ba4a4;
+  position: relative;
+  top: 3px;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.react-select__clear-indicator {
+  color: #5ba4a4 !important;
+}
+
+.react-select__dropdown-indicator {
+  cursor: pointer;
+}
+.react-select__multi-value {
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2fdfd !important;
+  border-radius: 5px;
+}
+.react-select__multi-value__label {
+  background-color: #f2fdfd;
+  color: #5ba4a4 !important;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+}
+.react-select__multi-value__remove {
+  height: 100%;
+  width: 2rem;
+  background-color: #5ba4a4;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.react-select__multi-value__remove:hover {
+  color: white !important;
+  background-color: black !important;
+}
+.bottom-section {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0fafb;
+}
+.cards-container {
+  width: 80%;
+  height: 100%;
+  padding-top: 3em;
+  margin-bottom: 2rem;
+}
+.card {
+  width: 100%;
+  height: 10rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0px 10px 30px 0px #afd9dd;
+  border-radius: 8px;
+  background-color: white;
+  overflow: hidden;
+}
+.left-card,
+.right-card {
+  width: 50%;
+  height: 100%;
+}
+.left-card {
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.avatar-container {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.company-info {
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+.company,
+.newContainer,
+.featuredContainer {
+  margin-right: 1rem;
+}
+
+.company {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #5ba4a4;
+}
+.newContainer {
+  min-width: 3rem;
+  height: 1.5rem;
+  background-color: #5ba4a4;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+}
+.new,
+.featured {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  color: white;
+}
+.featuredContainer {
+  padding-top: 3px;
+  min-width: 5rem;
+  height: 1.5rem;
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.more-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.day,
+.contract,
+.location {
+  margin-right: 1rem;
+}
+.fullstop {
+  height: 4px;
+  width: 4px;
+  border-radius: 100%;
+  background-color: gray;
+  position: relative;
+  right: 0.5rem;
+}
+.position {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  margin-top: 0.2rem;
+  margin-bottom: 0.3rem;
+  cursor: pointer;
+}
+.position:hover {
+  color: #5ba4a4;
+}
+.more-info > p {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #9aa1a1;
+}
+
+.right-card {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.right-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 4rem;
+}
+.role,
+.level,
+.languages,
+.tools {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  border: none;
+  background-color: #edf7f6;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #5ba4a4;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tools:hover {
+  color: white;
+  background-color: #5ba4a4;
+}
+.role:hover {
+  color: white;
+  background-color: #5ba4a4;
+}
+.level:hover {
+  color: white;
+  background-color: #5ba4a4;
+}
+.languages:hover {
+  color: white;
+  background-color: #5ba4a4;
+}
+.searchBar {
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+}
+.myInput {
+  flex-shrink: 1;
+  flex-grow: 1;
+  height: 4rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #5ba4a4;
+}
+.myInput::placeholder {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #5ba4a4;
+}
+.myInput:focus {
+  border: none;
+  outline: none;
+}
+.myInput:active {
+  border: none;
+  outline: none;
+}
+.results-container {
+  flex-shrink: 1;
+  flex-grow: 0;
+  min-width: 0rem;
+  min-height: 4rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.selection {
+  min-width: 6rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: #5ba4a4;
+  background-color: #f0f6f6;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.selection-text {
+  min-width: 4rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.close-selection {
+  min-width: 2rem;
+  height: 100%;
+  background-color: #5ba4a4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.close-selection:hover {
+  background-color: black;
+}
+.clear {
+  position: absolute;
+  right: 30px;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #5ba4a4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+@media screen and (max-width: 1220px) {
+  .info-container {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1130px) {
+  .info-container {
+    width: 60%;
+  }
+  .right-container {
+    padding-right: 2rem;
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1040px) {
+  .info-container {
+    width: 70%;
+  }
+  .right-container {
+    padding-right: 0.5rem;
+  }
+  .cards-container {
+    width: 85%;
+  }
+  .searchBar {
+    width: 85%;
+  }
+  .avatar-container {
+    margin-right: 0.5rem;
+  }
+  .avatar {
+    width: 4rem;
+  }
+  .left-card {
+    overflow: hidden;
+  }
+  .right-card {
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .info-container {
+    width: 80%;
+  }
+  .card {
+    flex-direction: column;
+    height: 11rem;
+  }
+  .left-card,
+  .right-card {
+    width: 100%;
+    height: 50%;
+  }
+  .right-container {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 600px) {
+  .card {
+    height: 20rem;
+    z-index: 1;
+    overflow: visible;
+    margin-bottom: 3rem;
+  }
+  .left-card {
+    flex-direction: column;
+    position: relative;
+    align-items: flex-start;
+    padding-left: 1rem;
+    overflow: visible;
+    height: 60%;
+  }
+  .avatar,
+  .avatar-container {
+    position: absolute;
+  }
+  .avatar {
+    width: 3rem;
+    top: -1.5rem;
+    left: 0rem;
+  }
+  .company-info,
+  .position,
+  .more-info {
+    margin-bottom: 0.5rem;
+  }
+  .right-card {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .right-container {
+    width: 95%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border-top: 2px solid rgb(203, 203, 203);
+  }
+  .info-container {
+    width: 100%;
+  }
+  .company-info {
+    height: 3rem;
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 345px) {
+  .card {
+    height: 20rem;
+  }
+}
+@media screen and (max-width: 345px) {
+  .card {
+    height: 22rem;
+  }
+  .searchBar {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .clear {
+    bottom: 1.5rem;
+  }
+  .myInput {
+    width: 50%;
+  }
+  .results-container {
+    min-height: 2rem;
+  }
+}
