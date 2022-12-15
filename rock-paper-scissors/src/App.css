@@ -1,0 +1,793 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700;800&display=swap');
+
+#root {
+  width: 100%;
+  height: 46rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(229, 64%, 46%);
+  border-radius: 10px;
+}
+
+.App {
+  min-width: 50rem;
+  height: 100%;
+}
+.home {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+}
+.primary-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.top-section {
+  width: 100%;
+  height: 25%;
+  border: 5px solid hsl(217, 16%, 45%);
+  border-radius: 10px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.img-container {
+  width: 10rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.game-logo {
+  width: 8.5rem;
+}
+.score-container {
+  width: 8rem;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.score-text {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 600;
+  color: #1e36a5;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  position: relative;
+  bottom: 0.5rem;
+}
+.score {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+  color: #58566d;
+  font-size: 3.5rem;
+  line-height: 0.5;
+}
+.bottom-section {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.pentagon {
+  width: 22rem;
+}
+.option {
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.selection {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 100%;
+  background-color: white;
+  box-shadow: inset 0px 8px 4px #b9bfd2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.scissorsContainer {
+  background: linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+  box-shadow: 0px 3px 0px 2px #c76b18;
+  position: absolute;
+  top: 1rem;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  /* animation: grow 0.5s ease-in-out infinite; */
+}
+.shakeAnimate {
+  animation: shake 0.3s ease-in-out infinite;
+}
+.scissorsResults {
+  height: 12rem;
+  width: 12rem;
+  background: linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+  box-shadow: 0px 3px 0px 2px #c76b18;
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 4rem;
+  flex-shrink: 0;
+}
+.animate {
+  animation: myAnimation 1s ease-in-out;
+}
+.animate1 {
+  animation: myAnimation1 1s ease-in-out;
+}
+@keyframes myAnimation {
+  0% {
+    transform: translateX(-100%) scale(0.1) translateY(-100%);
+  }
+  60% {
+    transform: translateX(20px) scale(1.2) translateY(25%);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes myAnimation1 {
+  0% {
+    transform: translateX(100%) scale(0.1);
+  }
+  60% {
+    transform: translateX(-20px) scale(1.2);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+.shadow {
+  box-shadow: 0rem 0.5rem 0.5rem 4rem rgba(255, 255, 255, 0.075),
+    0rem 0.5rem 0.5rem 8rem rgba(255, 255, 255, 0.05),
+    0rem 0.5rem 0.5rem 12rem rgba(255, 255, 255, 0.05);
+}
+@keyframes shake {
+  0% {
+    transform: translateX(5%);
+  }
+  25% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-5%);
+  }
+  75% {
+    transform: translateX(5%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+/* @keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.15);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1.3);
+  }
+} */
+
+.resultsOption {
+  height: 13rem;
+  width: 13rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.resultsSelection {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 100%;
+  background-color: white;
+  box-shadow: inset 0px 8px 4px #b9bfd2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.resultsImage {
+  width: 5rem;
+}
+.paper-container {
+  background: linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+  position: absolute;
+  top: 7rem;
+  right: 10rem;
+  box-shadow: 0px 3px 0px 2px #2a45c0;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.paperResults {
+  height: 13rem;
+  width: 13rem;
+  background: linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+  box-shadow: 0px 3px 0px 2px #2a45c0;
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 4rem;
+  flex-shrink: 0;
+}
+.rock-container {
+  background: linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+  position: absolute;
+  top: 19rem;
+  right: 13rem;
+  box-shadow: 0px 3px 0px 2px #9d1631;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.rockResults {
+  height: 13rem;
+  width: 13rem;
+  background: linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+  box-shadow: 0px 3px 0px 2px #9d1631;
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 4rem;
+  flex-shrink: 0;
+}
+.lizard-container {
+  background: linear-gradient(hsl(261, 73%, 60%), hsl(261, 72%, 63%));
+  position: absolute;
+  top: 19rem;
+  left: 13rem;
+  box-shadow: 0px 3px 0px 2px #5f37aa;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.lizardResults {
+  height: 13rem;
+  width: 13rem;
+  background: linear-gradient(hsl(261, 73%, 60%), hsl(261, 72%, 63%));
+  box-shadow: 0px 3px 0px 2px #5f37aa;
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 4rem;
+  flex-shrink: 0;
+}
+.spock-container {
+  background: linear-gradient(hsl(189, 59%, 53%), hsl(189, 58%, 57%));
+  position: absolute;
+  top: 7rem;
+  left: 10rem;
+  box-shadow: 0px 3px 0px 2px #2d8eab;
+  height: 9rem;
+  width: 9rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.spockResults {
+  height: 13rem;
+  width: 13rem;
+  background: linear-gradient(hsl(189, 59%, 53%), hsl(189, 58%, 57%));
+  box-shadow: 0px 3px 0px 2px #2d8eab;
+  position: relative;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 4rem;
+  flex-shrink: 0;
+}
+.rules-container {
+  position: absolute;
+  right: 4em;
+  bottom: 1rem;
+  height: 2.5rem;
+  width: 7rem;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.rules {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 500;
+  color: white;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+.rules-image {
+  position: absolute;
+  height: 30rem;
+  width: 25rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 6;
+}
+.close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+.rules-rules {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-weight: 700;
+  color: #58566d;
+  font-size: 2rem;
+  text-transform: uppercase;
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: black;
+  z-index: 5;
+  opacity: 0.5;
+}
+
+@media only screen and (max-width: 820px) {
+  .App {
+    min-width: 45rem;
+    height: 100%;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 8rem;
+    width: 8rem;
+  }
+  .rock-container {
+    right: 11rem;
+  }
+  .paper-container {
+    right: 9rem;
+  }
+  .lizard-container {
+    top: 19rem;
+    left: 12rem;
+  }
+  .spock-container {
+    left: 9rem;
+  }
+  .selection {
+    height: 6rem;
+    width: 6rem;
+  }
+}
+@media screen and (max-width: 750px) {
+  .App {
+    min-width: 40rem;
+    height: 100%;
+  }
+  .rock-container {
+    right: 8rem;
+  }
+  .paper-container {
+    right: 6rem;
+  }
+  .lizard-container {
+    left: 8rem;
+  }
+  .spock-container {
+    left: 6rem;
+  }
+}
+@media screen and (max-width: 650px) {
+  .App {
+    min-width: 33rem;
+    height: 100%;
+  }
+  .rock-container {
+    right: 5rem;
+  }
+  .paper-container {
+    right: 2rem;
+  }
+  .lizard-container {
+    left: 5rem;
+  }
+  .spock-container {
+    left: 2rem;
+  }
+}
+@media screen and (max-width: 550px) {
+  .App {
+    min-width: 28rem;
+    height: 100%;
+  }
+  #root {
+    height: 55rem;
+  }
+  .scissorsContainer {
+    top: 3rem;
+  }
+  .rock-container {
+    right: 4rem;
+    top: 22rem;
+  }
+  .paper-container {
+    right: 1rem;
+    top: 10rem;
+  }
+  .lizard-container {
+    left: 4rem;
+    top: 22rem;
+  }
+  .spock-container {
+    left: 1rem;
+    top: 10rem;
+  }
+  .game-logo {
+    width: 7rem;
+  }
+  .rules-container {
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    height: 3rem;
+    width: 9rem;
+    transform: translate(-50%, -50%);
+  }
+  .rules-image {
+    height: 100%;
+    width: 100%;
+  }
+  .main-rules {
+    width: 95%;
+  }
+  .rules-rules {
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .close {
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .App {
+    min-width: 24rem;
+    height: 100%;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 7rem;
+    width: 7rem;
+  }
+  .selection {
+    height: 5rem;
+    width: 5rem;
+  }
+  .normalImage {
+    width: 2.8rem;
+  }
+  .scissorsContainer {
+    top: 6rem;
+  }
+  .rock-container {
+    right: 3.5rem;
+  }
+  .paper-container {
+    right: 1rem;
+    top: 12rem;
+  }
+  .lizard-container {
+    left: 3.5rem;
+  }
+  .spock-container {
+    left: 1rem;
+    top: 12rem;
+  }
+  .pentagon {
+    width: 18rem;
+  }
+  .score-container {
+    width: 8rem;
+  }
+  .img-container {
+    width: 8rem;
+  }
+}
+@media screen and (max-width: 400px) {
+  .App {
+    min-width: 22rem;
+    height: 100%;
+  }
+  .score-container {
+    width: 7rem;
+  }
+  .img-container {
+    width: 7rem;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 7rem;
+    width: 7rem;
+  }
+  .selection {
+    height: 5rem;
+    width: 5rem;
+  }
+  .normalImage {
+    width: 2.8rem;
+  }
+  .scissorsContainer {
+    top: 6rem;
+  }
+  .rock-container {
+    right: 2rem;
+  }
+  .paper-container {
+    right: 0rem;
+    top: 12rem;
+  }
+  .lizard-container {
+    left: 2rem;
+  }
+  .spock-container {
+    left: 0rem;
+    top: 12rem;
+  }
+  .pentagon {
+    width: 18rem;
+  }
+}
+@media screen and (max-width: 360px) {
+  .App {
+    min-width: 20rem;
+    height: 100%;
+  }
+  .top-section {
+    padding: 1rem;
+  }
+  .score-container {
+    width: 6rem;
+  }
+  .img-container {
+    width: 7rem;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 6rem;
+    width: 6rem;
+  }
+  .selection {
+    height: 4.5rem;
+    width: 4.5rem;
+  }
+  .normalImage {
+    width: 2rem;
+  }
+  .scissorsContainer {
+    top: 8rem;
+  }
+  .rock-container {
+    right: 2rem;
+    top: 20rem;
+  }
+  .paper-container {
+    right: 0rem;
+    top: 12rem;
+  }
+  .lizard-container {
+    left: 2rem;
+    top: 20rem;
+  }
+  .spock-container {
+    left: 0rem;
+    top: 12rem;
+  }
+  .pentagon {
+    width: 15rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .App {
+    min-width: 18rem;
+    height: 100%;
+  }
+  .top-section {
+    padding: 1rem;
+  }
+  .score-container {
+    width: 6rem;
+  }
+  .img-container {
+    width: 7rem;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 5rem;
+    width: 5rem;
+  }
+  .selection {
+    height: 4rem;
+    width: 4rem;
+  }
+  .normalImage {
+    width: 2rem;
+  }
+  .scissorsContainer {
+    top: 9rem;
+  }
+  .rock-container {
+    right: 2rem;
+    top: 20rem;
+  }
+  .paper-container {
+    right: 0rem;
+    top: 13rem;
+  }
+  .lizard-container {
+    left: 2rem;
+    top: 20rem;
+  }
+  .spock-container {
+    left: 0rem;
+    top: 13rem;
+  }
+  .pentagon {
+    width: 13rem;
+  }
+}
+@media screen and (max-width: 300px) {
+  .App {
+    min-width: 16rem;
+    height: 100%;
+  }
+  .top-section {
+    padding: 1rem;
+  }
+  .score-container {
+    width: 6rem;
+  }
+  .img-container {
+    width: 7rem;
+  }
+  .scissorsContainer,
+  .rock-container,
+  .paper-container,
+  .lizard-container,
+  .spock-container {
+    height: 5rem;
+    width: 5rem;
+  }
+  .selection {
+    height: 4rem;
+    width: 4rem;
+  }
+  .normalImage {
+    width: 2rem;
+  }
+  .scissorsContainer {
+    top: 9rem;
+  }
+  .rock-container {
+    right: 2rem;
+    top: 20rem;
+  }
+  .paper-container {
+    right: 0rem;
+    top: 13rem;
+  }
+  .lizard-container {
+    left: 2rem;
+    top: 20rem;
+  }
+  .spock-container {
+    left: 0rem;
+    top: 13rem;
+  }
+  .pentagon {
+    width: 13rem;
+  }
+}
